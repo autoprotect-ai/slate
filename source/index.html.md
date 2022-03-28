@@ -3,9 +3,6 @@ title: AutoComplete Partner API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - python
-  - shell
-  - ruby
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -25,144 +22,21 @@ meta:
 
 # Introduction
 
-Welcome to the AutoComplete Partner API! Dealer partners can use this API to submit customer information into our database.
+Welcome to the AutoComplete Partner API! Dealer partners can use this API to create zero-effort insurance-shopping experiences for their customers.
 
-Once a customer is submitted, AutoComplete will generate and return a personalized verification/shopping link for that customer (e.g. "https://app.autocomplete.io/aBcDeF"). That personalized link will have the customer's contact, vehicle, and coverage details &mdash; in addition to your dealer profile &mdash; already pre-populated.
+For each customer you submit, AutoComplete will generate and return a personalized insurance-shopping link (e.g. "https://app.autocomplete.io/aBcDeF"). When visiting that link, your customer will see his/her own contact, household, and vehicle details &mdash; in addition to your dealer profile &mdash; already pre-populated.
 
-We support two types of car buyers:
+You can use this personalized shopping link in one of several ways:
 
-* **Prospective Car Buyers** who are currently shopping for a car, who have expressed interest in a specific vehicle, or who have scheduled a sales appointment. For these customers, AutoComplete focuses driver's license and insurance verification.
+1. Embed this link into your digital retail experience,
+2. Send this link to your customer through your own CRM system or sales process, or
+3. Have AutoComplete engage your customer directly.
 
-* **Committed/Closed Car Buyers** who have either committed to buying a specific vehicle or have completed the purchase.
+We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3) as **AutoComplete-Initiated Messaging**.
 
-## Prospective Car Buyers
+## Example Use Case
 
-> An example submission for Arya Stark, who has expressed interest in a Ford F-150:
-
-```json
-{
-    "first_name": "Arya",
-    "last_name": "Stark",
-    "phone_numbers": [
-        {
-            "number": "+15559870000",
-            "type": "mobile",
-            "sms_consent": true
-        }
-    ],
-    "emails": [
-        {
-            "email": "arya@stark.net",
-            "preferred": true
-        }
-    ],
-    "vehicles_of_interest": [
-        {
-            "year": 2022,
-            "make": "Ford",
-            "model": "F-150"
-        }
-    ]
-}
-```
-
-> Sample response:
-
-```json
-{
-    "id": "f57c2a83-872e-4c67-836b-15d37729ca56",
-    "first_name": "Arya",
-    "last_name": "Stark",
-    // Submitted fields truncated for brevity
-    // ...
-    "flow": {
-        "flow_identifier": "aBcDeF",
-        "flow_url": "https://app.autocomplete.io/aBcDeF", // Arya's personalized verification link
-        "lifecycle": "verify"
-    }
-}
-```
-
-> Response from `GET /people/f57c2a83-872e-4c67-836b-15d37729ca56` after Arya completes the Verification Flow:
-
-```json
-{
-    "id": "f57c2a83-872e-4c67-836b-15d37729ca56",
-    "first_name": "Arya",
-    "middle_name": "Minisa",
-    "last_name": "Stark",
-    "date_of_birth": "1997-04-15",
-    "gender": "female",
-    // TODO fill out the submitted fields
-    "addresses": [
-        {
-            "type": "physical",
-            "address_1": "123 Front Street",
-            "city": "Dover",
-            "state": "DE",
-            "postal_code": "19901",
-            "country": "United States"
-        }
-    ],
-    "drivers_license": {
-        "number": "D0001234",
-        "state": "CA",
-        "status": "active",
-        "issued_date": "2013-04-15",
-        "expiration_date": "2023-04-15"
-    },
-    "policies": [
-        {
-            "type": "auto",
-            "carrier": "Liberty Mutual",
-            "policy_number": "AB-12-CD-34",
-            "effective_date": "2022-03-02",
-            "expiration_date": "2022-09-02"
-        }
-    ],
-    "flow": {
-        "flow_identifier": "aBcDeF",
-        "flow_url": "https://app.autocomplete.io/aBcDeF", // Arya's personalized verification link
-        "lifecycle": "verify"
-    }
-}
-```
-
-The AutoComplete Verification Flow lets you easily collect legally required license and insurance information about your prospective buyers. This can help you streamline the sales appointment, test drive, and financing processes.
-
-The AutoComplete Verification Flow collects and validates the customer's:
-
-* Legal Name
-* Address
-* Date Of Birth
-* License Status
-* Insurance Company
-* Insurance Coverage
-
-Additionally, AutoComplete will help uninsured or underinsured customers obtain insurance before they even walk in to your store.
-
-Below are two examples of how to initiate the AutoComplete Verification Flow:
-
-### Dealer-Initiated Messaging
-
-1. Arya Stark schedules an appointment with you, the dealer, to view a Ford F-150.
-2. You submit Arya's basic contact information and vehicle of interest to the AutoComplete API using the `POST /people` endpoint.
-3. AutoComplete returns to you a personalized verification link, such as `app.autocomplete.io/aBcDeF`.
-4. You send that personalized verification link to Arya.
-5. Arya visits her personalized link, where she submits her driver's license and insurance information.
-6. You retrieve Arya's verified license and insurance data from the AutoComplete API using the `GET /people` endpoint.
-
-### AutoComplete-Initiated Messaging
-
-1. Arya Stark schedules an appointment with you, the dealer, to view a Ford F-150.
-2. You submit Arya's basic contact information and vehicle of interest to the AutoComplete API using the `POST /people` endpoint.
-3. AutoComplete messages Arya directly with her personalized verification link.
-4. Arya visits her personalized link, where she submits her driver's license and insurance information.
-5. AutoComplete submits Arya's verified license and insurance data directly into your CRM.
-
-## Committed/Closed Car Buyers
-
-> An example submission for Jon Snow, who has just traded in his old Toyota Camry for a new Audi A4:
+> Sample submission to `POST /people`:
 
 ```json
 {
@@ -284,33 +158,28 @@ Below are two examples of how to initiate the AutoComplete Verification Flow:
     "flow": {
         "flow_identifier": "uVwXyZ",
         "flow_url": "https://app.autocomplete.io/uVwXyZ", // Jon's personalized shopping link
-        "lifecycle": "shop"
     }
 }
 ```
 
-The AutoComplete Shop Flow helps your committed or closed car buyer instantly compare insurance quotes across all our partner carriers. When you submit the buyer's information to the AutoComplete API, AutoComplete generates a personalized insurance-shopping link for that customer.
+> Sample error:
 
-Using the information you submit in conjunction with third-party data sources, AutoComplete will pre-populate this personalized link with the buyer's contact information, household drivers, new and existing vehicles, and existing coverages. The quality of the personalization is determined by the level of detail you submit.
+```json
+{
+    "status_code": 400,
+    "message": "Field 'new_vehicles' cannot be empty."
+}
+```
 
-This means _you should submit as many of the allowed fields as possible_. Nevertheless, _every field is optional_. AutoComplete will collect any missing information directly from the buyer.
+Let's say your customer, Jon Snow, wants to trade in an old Toyota Camry for a new Audi A4.
 
-Below are two examples of how to initiate the AutoComplete Shop Flow:
+Once that deal is desked, you submit all of Jon's DMS (dealer management system) data to the AutoComplete API using the `POST /people` endpoint.
 
-### Dealer-Initiated Messaging
+Using the information you just submitted plus data from third-party partners, AutoComplete creates a personalized shopping link for Jon containing his contact information, household drivers, new and existing vehicles, and prior coverages. The quality of this personalization is determined by the level of detail you submit, which means _you should submit as many available fields as possible_.
 
-1. Jon Snow trades in an old Toyota Camry for a new Audi A4.
-2. Upon desking, you submit all of Jon's DMS data to the AutoComplete API using the `POST /people` endpoint.
-3. AutoComplete returns to you a personalized shopping link, such as `app.autocomplete.io/uVwXyZ`.
-4. You send that personalized shopping link to Jon.
-5. Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
+If you've configured your integration for **Dealer-Initiated Messaging**, AutoComplete simply returns Jon's personalized link (e.g. "https://app.autocomplete.io/aBcDeF") back to you. On the other hand, if you've configured your integration for **AutoComplete-Initiated Messaging**, AutoComplete will engage with Jon directly via his preferred contact method.
 
-### AutoComplete-Initiated Messaging
-
-1. Jon Snow trades in an old Toyota Camry for a new Audi A4.
-2. Upon desking, you submit all of Jon's DMS data to the AutoComplete API using the `POST /people` endpoint.
-3. AutoComplete messages Jon directly with his personalized shopping link.
-4. Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
+Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
 
 # Technical Overview
 
@@ -329,11 +198,78 @@ r = requests.get('https://api.autocomplete.io/people', auth=(api_key, api_secret
 
 The AutoComplete Partner API is served exclusively over **HTTPS**, requests are authenticated using **Basic Authentication** with your **API Key** and **API Secret**, and all request bodies and responses are **JSON-encoded**. We also use standard HTTP headers, verbs, and [response codes](#response-codes).
 
+Requests are **rate limited** to one request per second.
+
+# Endpoints
+
+## `POST /people`
+
+> Example with minimum required fields:
+
+```python
+import requests
+
+api_key = # <Your API Key>
+api_secret = # <Your API Secret>
+
+headers = {'Content-Type': 'application/json'}
+
+data = {
+    "first_name": "Jon",
+    "last_name": "Snow",
+    "date_of_birth": "1986-12-26",
+    "phone_numbers": [
+        {
+            "number": "+15551230000",
+            "type": "mobile",
+            "sms_consent": True
+        }
+    ],
+    "addresses": [
+        {
+            "full_address": "555 Main St., Pleasantville, CA 94105"
+        }
+    ],
+    "drivers_license": [
+        {
+            "number": "D1234567",
+            "state": "CA"
+        }
+    ],
+    "new_vehicles": [
+        {
+            "vin": "WAULH54B0YN028245"
+        }
+    ]
+}
+
+r = requests.post('https://api.autocomplete.io/people', auth=(api_key, api_secret), headers=headers, json=data)
+
+if r.status_code == 200:
+    print(r.text)
+```
+
+Upload all customer information using this endpoint. _All fields are preferred, only some fields are required_.
+
+### Minimum Required Fields
+
+| **Parameter** | **Notes** |
+| --- | --- |
+| **first_name** |  |
+| **last_name** |  |
+| **date_of_birth** |  |
+| **phone_numbers** | Must contain at least one valid phone number, with `sms_consent: true`, when configured for **AutoComplete-Initiated Messaging** |
+| **addresses** | Must contain at least one valid address |
+| **drivers_license** | Must include `number` and `state` |
+| **new_vehicles** | Must contain at least one vehicle, with `vin` |
+
+For all preferred fields, see [Models - Person](#person).
+
 # Models
 
 ## Person
 
-This is the primary model to represent all prospective or recent car buyers.
+This is the model used to represent a customer.
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
@@ -341,24 +277,23 @@ This is the primary model to represent all prospective or recent car buyers.
 | **middle_name** | string |  |
 | **last_name** | string |  |
 | **date_of_birth** | string | "YYYY-MM-DD" format |
-| **gender** | string | Valid options: "male", "female", "non_binary" |
-| **marital_status** | string | Valid options: "single", "married", "other" |
-| **relationship** | string | Required when the **Person** is an element of an array, such as in the `.related_people` field. Valid options: "self", "spouse", "sibling", "parent", "parent_in_law", "child", "child_in_law", "housemate", "other" |
-| **education** | string | Highest level of education achieved. Valid options: "associates", "bachelors", "doctorate", "no_high_school_diploma", "high_school", "masters", "medical_school", "law_school", "vocational_certificate", "other" |
-| **employment_status** | string | Valid options: "employed", "retired", "student", "unemployed" |
-| **residence_ownership_type** | string | Valid options: "own", "rent" |
+| **gender** | string | Valid options: `male`, `female`, `non_binary` |
+| **marital_status** | string | Valid options: `single`, `married`, `other` |
+| **relationship** | string | Required when the **Person** is an element of an array, such as in the `.related_people` field. Valid options: `spouse`, `sibling`, `parent`, `parent_in_law`, `child`, `child_in_law`, `housemate`, `other` |
+| **education** | string | Highest level of education achieved. Valid options: `associates`, `bachelors`, `doctorate`, `no_high_school_diploma`, `high_school`, `masters`, `medical_school`, `law_school`, `vocational_certificate`, `other` |
+| **employment_status** | string | Valid options: `employed`, `retired`, `student`, `unemployed` |
+| **residence_ownership_type** | string | Valid options: `own`, `rent` |
 | **age_first_licensed** | integer |  |
 | **phone_numbers** | Array<**[PhoneNumber](#phonenumber)**> |  |
 | **emails** | Array<**[Email](#email)**> |  |
 | **addresses** | Array<**[Address](#address)**> |  |
-| **drivers_license** | <**DriversLicense**> |  |
-| **policies** | Array<**Policy**> |  |
-| **new_vehicles** | Array<**Vehicle**> | Used only when submitting newly purchased (including leased and financed) vehicles of recent car buyers |
-| **trade_ins** | Array<**Vehicle**> | Used only when submitting trade-ins of recent car buyers |
-| **vehicles_of_interest** | Array<**Vehicle**> | Used only when submitting vehicles-of-interest for prospective car buyers |
-| **vehicles** | Array<**Vehicle**> | Returned from the `GET /people` endpoint containing the vehicles known to be owned by this **Person** |
+| **drivers_license** | <**[DriversLicense](#driverslicense)**> |  |
+| **policies** | Array<**[Policy](#policy)**> |  |
+| **new_vehicles** | Array<**[Vehicle](#vehicle)**> | Used only when submitting to `POST /people` |
+| **trade_ins** | Array<**[Vehicle](#vehicle)**> | Used only when submitting to `POST /people` |
+| **vehicles** | Array<**[Vehicle](#vehicle)**> | Never submitted. Only available when reading from `GET /people`. |
 | **related_people** | Array<**Person**> |  |
-| **flow** | <**[Flow](#flow)**> |  |
+| **flow** | <**[Flow](#flow)**> | Never submitted |
 
 ## PhoneNumber
 
@@ -375,7 +310,7 @@ This is the primary model to represent all prospective or recent car buyers.
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
 | **number** | string | Formatted as "+\[Country Code\]\[Number\]", e.g. "+15551230000" |
-| **type** | string | Valid options: "mobile", "home", "work" |
+| **type** | string | Valid options: `mobile`, `home`, `work` |
 | **sms_consent** | boolean |  |
 
 ## Email
@@ -422,7 +357,7 @@ Addresses can be submitted either fully parsed (i.e. broken down into `address_1
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
-| **type** | string | Valid options: "mailing", "physical", "garaging", "lienholder" |
+| **type** | string | Valid options: `mailing`, `physical`, `garaging`, `lienholder` |
 | **address_1** | string | The first line of the address, e.g. "530 Howard St" |
 | **address_2** | string | The second line of the address, e.g. "Unit 470" |
 | **city** | string | e.g. "San Francisco" |
@@ -431,6 +366,114 @@ Addresses can be submitted either fully parsed (i.e. broken down into `address_1
 | **country** | string | The only supported country is "United States". Will default to "United States" |
 | **full_address** | string | e.g. "530 Howard St, Unit 470, San Francisco, CA 94105-0907" |
 
+## DriversLicense
+
+> Example:
+
+``` json
+{
+    "number": "D123456",
+    "state": "CA",
+    "status": "active",
+    "issued_date": "2018-10-25",
+    "expiration_date": "2028-10-25"
+}
+```
+
+| **Parameter** | **Type** | **Description** |
+| --- | --- | --- |
+| **number** | string | Alphanumeric, e.g. "D1234567" |
+| **state** | string | Two-letter postal abbreviation, e.g. "CA" |
+| **status** | string | Valid options: `active`, `suspended`, `revoked`, `expired` |
+| **issued_date** | string | "YYYY-MM-DD" format |
+| **expiration_date** | string | "YYYY-MM-DD" format |
+
+## Policy
+
+> Example:
+
+```json
+{
+    "type": "auto",
+    "carrier": "Geico",
+    "policy_number": "604-80-35-635",
+    "effective_date": "2021-12-20",
+    "expiration_date": "2022-05-20"
+}
+```
+
+| **Parameter** | **Type** | **Description** |
+| --- | --- | --- |
+| **type** | string | Valid options: see **[Enums - Policy Type](#policy-type)** |
+| **carrier** | string | Valid options: see **[Enums - Carrier](#carrier)** |
+| **policy_number** | string | e.g. "6048035635" |
+| **effective_date** | string | "YYYY-MM-DD" format |
+| **expiration_date** | string | "YYYY-MM-DD" format |
+
+## Vehicle
+
+> Example:
+
+```json
+{
+    "vin": "2T3RWRFV3KW021971",
+    "year": 2019,
+    "make": "Toyota",
+    "model": "RAV4",
+    "trim": "XLE",
+    "ownership_start": "2019-08-21",
+    "ownership_type": "leased",
+    "lease_duration": 36,
+    "finance_duration": null,
+    "annual_mileage": 12000,
+    "odometer": 48,
+    "cost_new": 3999500,
+    "primary_use": "work",
+    "lienholder": "Toyota Financial Services",
+    "anti_lock_brakes": true,
+    "anti_theft_device": true,
+    "rideshare": false,
+    "addresses": [
+        {
+            "type": "garaging",
+            "address_1": "530 Howard St",
+            "address_2": "Ste 470",
+            "city": "San Francisco",
+            "state": "CA",
+            "postal_code": "94105"
+        },
+        {
+            "type": "lienholder",
+            "address_1": "PO BOX 105386",
+            "city": "Atlanta",
+            "state": "GA",
+            "postal_code": "30348-5386"
+        }
+    ]
+}
+```
+
+| **Parameter** | **Type** | **Description** |
+| --- | --- | --- |
+| **vin** | string | 17 alphanumeric characters |
+| **year** | integer | e.g. 2021 |
+| **make** | string | Valid options: see **[Enums - Vehicle Make](#vehicle-make)** |
+| **model** | string | e.g. "RAV4" |
+| **trim** | string | e.g. "XLE" |
+| **ownership_start** | string | "YYYY-MM-DD" format |
+| **ownership_type** | string | Only available when reading from `GET /people`. Valid options: `owned`, `financed`, `leased`, `trade_in`, `other` |
+| **lease_duration** | integer | Only applicable when `.type == "leased"`. In months |
+| **finance_duration** | integer | Only applicable when `.type == "financed"`. In months |
+| **annual_mileage** | integer | In miles |
+| **odometer** | integer | In miles |
+| **cost_new** | integer | In cents |
+| **primary_use** | string | Valid options: `work`, `pleasure`, `school`, `business`, `agricultural` |
+| **lienholder** | string | e.g. "Toyota Financial Services" |
+| **anti_lock_brakes** | boolean |  |
+| **anti_theft_device** | boolean |  |
+| **rideshare** | boolean |  |
+| **addresses** | Array<**[Address](#address)**> |  |
+
 ## Flow
 
 > Example:
@@ -438,216 +481,155 @@ Addresses can be submitted either fully parsed (i.e. broken down into `address_1
 ```json
 {
     "flow_identifier": "aBcDeF",
-    "flow_url": "https://apps.autocomplete.io/aBcDeF",
-    "lifecycle": "verify"
+    "flow_url": "https://apps.autocomplete.io/aBcDeF", 
 }
 ```
 
-This encapsulates information about the customer lifecycle. The `flow_url` is the personalized verify/shop link for that customer.
+The `flow_url` is the personalized insurance-shopping link for that customer.
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
 | **flow_identifier** | string | e.g. "aBcDeF" |
 | **flow_url** | string | e.g. "https://apps.autocomplete.io/aBcDeF" |
-| **lifecycle** | string | Valid options: "verify", "shop" |
 
 # Enums
 
-### What's a smaller title?
+When submitting, all values are case-insensitive. Spaces and underscores are interchangeable.
 
-### Is this something?
+For example, `"american_family"`, `"american family"`, and `"AMERICAN FAMILY"` will all be accepted as a valid alternatives for `"American Family"`. However, responses returned from the API will always be formatted as shown.
 
 ## Carrier
 
-`AAA`
-
-`Allstate`
-
-## Occupation
-
-## Phone Number Type
+```json
+"AAA"
+"Allstate"
+"American Family"
+"American National"
+"Amica Mutual"
+"Auto Owners"
+"Bear River"
+"Chubb"
+"Country Financial"
+"Encompass"
+"Erie"
+"Esurance"
+"Farmers"
+"Foremost"
+"Geico"
+"Hanover"
+"Heritage"
+"Hippo"
+"Homesite"
+"Kemper"
+"Kentucky Farm Bureau"
+"Liberty Mutual"
+"Mercury"
+"Metlife"
+"National General"
+"Nationwide"
+"Progressive"
+"Safeco"
+"Shelter"
+"State Auto"
+"State Farm"
+"Travelers"
+"Universal"
+"USAA"
+```
 
 ## Policy Type
 
+```json
+"auto"
+"boat"
+"business_owners"
+"combo"
+"commercial_auto"
+"commercial_umbrella"
+"condo"
+"earthquake"
+"farmowner"
+"fire"
+"flood"
+"homeowners"
+"landlord"
+"life"
+"motorcycle"
+"personal_articles"
+"recreational_vehicle"
+"renters"
+"snowmobile"
+"term_life"
+"trailer"
+"umbrella"
+"universal_life"
+"whole_life"
+```
+
 ## Vehicle Make
 
-## Vehicle Use
-
 ```json
-["work", "pleasure", "school", "business", "agricultural"]
+"Acura"
+"Alfa Romeo"
+"Aston Martin"
+"Audi"
+"BMW"
+"Bentley"
+"Bollinger"
+"Bugatti"
+"Buick"
+"Cadillac"
+"Canoo"
+"Chevrolet"
+"Chrysler"
+"Dodge"
+"Ferrari"
+"Fiat"
+"Fisker"
+"Ford"
+"GMC"
+"Genesis"
+"Honda"
+"Hummer"
+"Hyundai"
+"Infiniti"
+"Jaguar"
+"Jeep"
+"Karma"
+"Kia"
+"Lamborghini"
+"Land Rover"
+"Lexus"
+"Lincoln"
+"Lordstown"
+"Lotus"
+"Lucid"
+"Maserati"
+"Maybach"
+"Mazda"
+"McLaren"
+"Mercedes"
+"Mercury"
+"Mini"
+"Mitsubishi"
+"Nikola"
+"Nissan"
+"Oldsmobile"
+"Polestar"
+"Pontiac"
+"Porsche"
+"Plymouth"
+"Ram"
+"Rivian"
+"Rolls Royce"
+"Saab"
+"Saturn"
+"Scion"
+"Smart"
+"Subaru"
+"Suzuki"
+"Tesla"
+"Toyota"
+"Volkswagen"
+"Volvo"
 ```
-
-`work`, `pleasure`, `school`, `business`, `agricultural`
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
