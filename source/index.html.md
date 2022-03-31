@@ -17,7 +17,7 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation the AutoComplete Partner API
 ---
 
 # Introduction

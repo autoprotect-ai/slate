@@ -10,10 +10,3 @@
 ```
 
 The category of error will generally be indicated by the HTTP response code. Additionally, the API will attempt to return a human-readable error message.
-
-## Handling Errors
-
-```python
-```
-
-Something something
