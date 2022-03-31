@@ -9,7 +9,7 @@
             name="description"
             content="Documentation for the Kittn API"
         >
-    <title>API Reference</title>
+    <title>AutoComplete Partner API Reference</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -303,12 +303,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
+      <img src="images/logo-91c9cddf.png" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
               <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -317,281 +314,1028 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#example-use-case" class="toc-h2 toc-link" data-title="Example Use Case">Example Use Case</a>
                   </li>
               </ul>
           </li>
           <li>
+            <a href="#technical-overview" class="toc-h1 toc-link" data-title="Technical Overview">Technical Overview</a>
+          </li>
+          <li>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-people" class="toc-h2 toc-link" data-title="POST /people"><code>POST /people</code></a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#models" class="toc-h1 toc-link" data-title="Models">Models</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#person" class="toc-h2 toc-link" data-title="Person">Person</a>
+                  </li>
+                  <li>
+                    <a href="#phonenumber" class="toc-h2 toc-link" data-title="PhoneNumber">PhoneNumber</a>
+                  </li>
+                  <li>
+                    <a href="#email" class="toc-h2 toc-link" data-title="Email">Email</a>
+                  </li>
+                  <li>
+                    <a href="#address" class="toc-h2 toc-link" data-title="Address">Address</a>
+                  </li>
+                  <li>
+                    <a href="#driverslicense" class="toc-h2 toc-link" data-title="DriversLicense">DriversLicense</a>
+                  </li>
+                  <li>
+                    <a href="#policy" class="toc-h2 toc-link" data-title="Policy">Policy</a>
+                  </li>
+                  <li>
+                    <a href="#vehicle" class="toc-h2 toc-link" data-title="Vehicle">Vehicle</a>
+                  </li>
+                  <li>
+                    <a href="#flow" class="toc-h2 toc-link" data-title="Flow">Flow</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#enums" class="toc-h1 toc-link" data-title="Enums">Enums</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#carrier" class="toc-h2 toc-link" data-title="Carrier">Carrier</a>
+                  </li>
+                  <li>
+                    <a href="#policy-type" class="toc-h2 toc-link" data-title="Policy Type">Policy Type</a>
+                  </li>
+                  <li>
+                    <a href="#vehicle-make" class="toc-h2 toc-link" data-title="Vehicle Make">Vehicle Make</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#response-codes" class="toc-h1 toc-link" data-title="Response Codes">Response Codes</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#handling-errors" class="toc-h2 toc-link" data-title="Handling Errors">Handling Errors</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the AutoComplete Partner API! Dealer partners can use this API to create zero-effort insurance-shopping experiences for their customers.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>For each customer you submit, AutoComplete will generate and return a personalized insurance-shopping link (e.g. &quot;https://app.autocomplete.io/aBcDeF&quot;). When visiting that link, your customer will see his/her own contact, household, and vehicle details &mdash; in addition to your dealer profile &mdash; already pre-populated.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<p>You can use this personalized shopping link in one of several ways:</p>
+
+<ol>
+<li>Embed this link into your digital retail experience,</li>
+<li>Send this link to your customer through your own CRM system or sales process, or</li>
+<li>Have AutoComplete engage your customer directly.</li>
+</ol>
+
+<p>We refer to options (1) and (2) as <strong>Dealer-Initiated Messaging</strong>, and option (3) as <strong>AutoComplete-Initiated Messaging</strong>.</p>
+<h2 id='example-use-case'>Example Use Case</h2>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Sample submission to <code>POST /people</code>:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"middle_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aegon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"date_of_birth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1986-12-26"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"marital_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"married"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"education"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bachelors"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"employment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"residence_ownership_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"own"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"age_first_licensed"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551230000"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"sms_consent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551231111"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"home"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jon.snow@nightswatch.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"preferred"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"full_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"555 Main St., Pleasantville, CA 94105"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mailing"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PO Box 100"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94105"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"drivers_license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D1234567"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"issued_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-11-11"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-11"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"new_vehicles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WAULH54B0YN028245"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audi"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"trim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45 TFSI"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ownership_start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-09"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ownership_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leased"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lease_term"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"annual_mileage"</span><span class="p">:</span><span class="w"> </span><span class="mi">12000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"odometer"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cost_new"</span><span class="p">:</span><span class="w"> </span><span class="mi">3990000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lienholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toyota Financial Services"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"primary_use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pleasure"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rideshare"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"garaging"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"full_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"555 Main St., Pleasantville, CA 94105"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lienholder"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"full_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1 Toyota Way, Plano, TX 75024"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"trade_ins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5TD2A23C645204309"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2015</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toyota"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camry"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"odometer"</span><span class="p">:</span><span class="w"> </span><span class="mi">78001</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"policies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"carrier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"effective_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-20"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"related_people"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ygritte"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wildling"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"date_of_birth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1987-02-09"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marital_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"married"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"relationship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spouse"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<blockquote>
+<p>Sample response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ec694d9a-a3f8-4a55-95ff-de97d1bc945a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">Submitted</span><span class="w"> </span><span class="err">fields</span><span class="w"> </span><span class="err">truncated</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">brevity</span><span class="w">
+    </span><span class="err">//...</span><span class="w">
+    </span><span class="nl">"flow"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"flow_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uVwXyZ"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"flow_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.autocomplete.io/uVwXyZ"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Jon's</span><span class="w"> </span><span class="err">personalized</span><span class="w"> </span><span class="err">shopping</span><span class="w"> </span><span class="err">link</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Sample error:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Field 'new_vehicles' cannot be empty."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Let&#39;s say your customer, Jon Snow, wants to trade in an old Toyota Camry for a new Audi A4.</p>
+
+<p>Once that deal is desked, you submit all of Jon&#39;s DMS (dealer management system) data to the AutoComplete API using the <code>POST /people</code> endpoint.</p>
+
+<p>Using the information you just submitted plus data from third-party partners, AutoComplete creates a personalized shopping link for Jon containing his contact information, household drivers, new and existing vehicles, and prior coverages. The quality of this personalization is determined by the level of detail you submit, which means <em>you should submit as many available fields as possible</em>.</p>
+
+<p>If you&#39;ve configured your integration for <strong>Dealer-Initiated Messaging</strong>, AutoComplete simply returns Jon&#39;s personalized link (e.g. &quot;https://app.autocomplete.io/aBcDeF&quot;) back to you. On the other hand, if you&#39;ve configured your integration for <strong>AutoComplete-Initiated Messaging</strong>, AutoComplete will engage with Jon directly via his preferred contact method.</p>
+
+<p>Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.</p>
+<h1 id='technical-overview'>Technical Overview</h1>
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="c1"># &lt;Your API Key&gt;
+</span><span class="n">api_secret</span> <span class="o">=</span> <span class="c1"># &lt;Your API Secret&gt;
+</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.autocomplete.io/people'</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div>
+<p>The AutoComplete Partner API is served exclusively over <strong>HTTPS</strong>, requests are authenticated using <strong>Basic Authentication</strong> with your <strong>API Key</strong> and <strong>API Secret</strong>, and all request bodies and responses are <strong>JSON-encoded</strong>. We also use standard HTTP headers, verbs, and <a href="#response-codes">response codes</a>.</p>
+
+<p>Requests are <strong>rate limited</strong> to one request per second.</p>
+<h1 id='endpoints'>Endpoints</h1><h2 id='post-people'><code>POST /people</code></h2>
+<blockquote>
+<p>Example with minimum required fields:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="c1"># &lt;Your API Key&gt;
+</span><span class="n">api_secret</span> <span class="o">=</span> <span class="c1"># &lt;Your API Secret&gt;
+</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"Jon"</span><span class="p">,</span>
+    <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Snow"</span><span class="p">,</span>
+    <span class="s">"date_of_birth"</span><span class="p">:</span> <span class="s">"1986-12-26"</span><span class="p">,</span>
+    <span class="s">"phone_numbers"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"number"</span><span class="p">:</span> <span class="s">"+15551230000"</span><span class="p">,</span>
+            <span class="s">"type"</span><span class="p">:</span> <span class="s">"mobile"</span><span class="p">,</span>
+            <span class="s">"sms_consent"</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"full_address"</span><span class="p">:</span> <span class="s">"555 Main St., Pleasantville, CA 94105"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"drivers_license"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"number"</span><span class="p">:</span> <span class="s">"D1234567"</span><span class="p">,</span>
+            <span class="s">"state"</span><span class="p">:</span> <span class="s">"CA"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"new_vehicles"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"vin"</span><span class="p">:</span> <span class="s">"WAULH54B0YN028245"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.autocomplete.io/people'</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>Upload all customer information using this endpoint. <em>All fields are preferred, only some fields are required</em>.</p>
+<h3 id='minimum-required-fields'>Minimum Required Fields</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th><strong>Parameter</strong></th>
+<th><strong>Notes</strong></th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td><strong>first_name</strong></td>
+<td></td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td><strong>last_name</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>date_of_birth</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>phone_numbers</strong></td>
+<td>Must contain at least one valid phone number, with <code>sms_consent: true</code>, when configured for <strong>AutoComplete-Initiated Messaging</strong></td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td>Must contain at least one valid address</td>
+</tr>
+<tr>
+<td><strong>drivers_license</strong></td>
+<td>Must include <code>number</code> and <code>state</code></td>
+</tr>
+<tr>
+<td><strong>new_vehicles</strong></td>
+<td>Must contain at least one vehicle, with <code>vin</code></td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>For all preferred fields, see <a href="#person">Models - Person</a>.</p>
+<h1 id='models'>Models</h1><h2 id='person'>Person</h2>
+<p>This is the model used to represent a customer.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td><strong>first_name</strong></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>middle_name</strong></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>last_name</strong></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>date_of_birth</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+<tr>
+<td><strong>gender</strong></td>
+<td>string</td>
+<td>Valid options: <code>male</code>, <code>female</code>, <code>non_binary</code></td>
+</tr>
+<tr>
+<td><strong>marital_status</strong></td>
+<td>string</td>
+<td>Valid options: <code>single</code>, <code>married</code>, <code>other</code></td>
+</tr>
+<tr>
+<td><strong>relationship</strong></td>
+<td>string</td>
+<td>Required when the <strong>Person</strong> is an element of an array, such as in the <code>.related_people</code> field. Valid options: <code>spouse</code>, <code>sibling</code>, <code>parent</code>, <code>parent_in_law</code>, <code>child</code>, <code>child_in_law</code>, <code>housemate</code>, <code>other</code></td>
+</tr>
+<tr>
+<td><strong>education</strong></td>
+<td>string</td>
+<td>Highest level of education achieved. Valid options: <code>associates</code>, <code>bachelors</code>, <code>doctorate</code>, <code>no_high_school_diploma</code>, <code>high_school</code>, <code>masters</code>, <code>medical_school</code>, <code>law_school</code>, <code>vocational_certificate</code>, <code>other</code></td>
+</tr>
+<tr>
+<td><strong>employment_status</strong></td>
+<td>string</td>
+<td>Valid options: <code>employed</code>, <code>retired</code>, <code>student</code>, <code>unemployed</code></td>
+</tr>
+<tr>
+<td><strong>residence_ownership_type</strong></td>
+<td>string</td>
+<td>Valid options: <code>own</code>, <code>rent</code></td>
+</tr>
+<tr>
+<td><strong>age_first_licensed</strong></td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>phone_numbers</strong></td>
+<td>Array&lt;<strong><a href="#phonenumber">PhoneNumber</a></strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>emails</strong></td>
+<td>Array&lt;<strong><a href="#email">Email</a></strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td>Array&lt;<strong><a href="#address">Address</a></strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>drivers_license</strong></td>
+<td>&lt;<strong><a href="#driverslicense">DriversLicense</a></strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>policies</strong></td>
+<td>Array&lt;<strong><a href="#policy">Policy</a></strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>new_vehicles</strong></td>
+<td>Array&lt;<strong><a href="#vehicle">Vehicle</a></strong>&gt;</td>
+<td>Used only when submitting to <code>POST /people</code></td>
+</tr>
+<tr>
+<td><strong>trade_ins</strong></td>
+<td>Array&lt;<strong><a href="#vehicle">Vehicle</a></strong>&gt;</td>
+<td>Used only when submitting to <code>POST /people</code></td>
+</tr>
+<tr>
+<td><strong>vehicles</strong></td>
+<td>Array&lt;<strong><a href="#vehicle">Vehicle</a></strong>&gt;</td>
+<td>Never submitted. Only available when reading from <code>GET /people</code>.</td>
+</tr>
+<tr>
+<td><strong>related_people</strong></td>
+<td>Array&lt;<strong>Person</strong>&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>flow</strong></td>
+<td>&lt;<strong><a href="#flow">Flow</a></strong>&gt;</td>
+<td>Never submitted</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
+<h2 id='phonenumber'>PhoneNumber</h2>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551230000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sms_consent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td><strong>number</strong></td>
+<td>string</td>
+<td>Formatted as &quot;+[Country Code][Number]&quot;, e.g. &quot;+15551230000&quot;</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td>string</td>
+<td>Valid options: <code>mobile</code>, <code>home</code>, <code>work</code></td>
+</tr>
+<tr>
+<td><strong>sms_consent</strong></td>
+<td>boolean</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='email'>Email</h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"preferred"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>email</strong>  <br></td>
+<td>string</td>
+<td>e.g. &quot;<a href="mailto:john@gmail.com">john@gmail.com</a>&quot;</td>
+</tr>
+<tr>
+<td><strong>preferred</strong></td>
+<td>boolean</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='address'>Address</h2>
+<blockquote>
+<p>Example of a parsed address:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mailing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1650 17th St NW"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suite 100"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20500"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Example of an unparsed address:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"physical"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"full_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"931 Thomas Jefferson Parkway, Charlottesville, VA 22902"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Addresses can be submitted either fully parsed (i.e. broken down into <code>address_1</code>, <code>city</code>, <code>state</code>, etc. constituent parts) or as unparsed text using the <code>full_address</code> field. If both are submitted, the parsed fields will take precedence.</p>
+
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>type</strong></td>
+<td>string</td>
+<td>Valid options: <code>mailing</code>, <code>physical</code>, <code>garaging</code>, <code>lienholder</code></td>
+</tr>
+<tr>
+<td><strong>address_1</strong></td>
+<td>string</td>
+<td>The first line of the address, e.g. &quot;530 Howard St&quot;</td>
+</tr>
+<tr>
+<td><strong>address_2</strong></td>
+<td>string</td>
+<td>The second line of the address, e.g. &quot;Unit 470&quot;</td>
+</tr>
+<tr>
+<td><strong>city</strong></td>
+<td>string</td>
+<td>e.g. &quot;San Francisco&quot;</td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>string</td>
+<td>Two-letter postal abbreviation, e.g. &quot;CA&quot;</td>
+</tr>
+<tr>
+<td><strong>postal_code</strong></td>
+<td>string</td>
+<td>e.g. &quot;94105&quot; or &quot;94105-0907&quot;</td>
+</tr>
+<tr>
+<td><strong>country</strong></td>
+<td>string</td>
+<td>The only supported country is &quot;United States&quot;. Will default to &quot;United States&quot;</td>
+</tr>
+<tr>
+<td><strong>full_address</strong></td>
+<td>string</td>
+<td>e.g. &quot;530 Howard St, Unit 470, San Francisco, CA 94105-0907&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='driverslicense'>DriversLicense</h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D123456"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"issued_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2028-10-25"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>number</strong></td>
+<td>string</td>
+<td>Alphanumeric, e.g. &quot;D1234567&quot;</td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>string</td>
+<td>Two-letter postal abbreviation, e.g. &quot;CA&quot;</td>
+</tr>
+<tr>
+<td><strong>status</strong></td>
+<td>string</td>
+<td>Valid options: <code>active</code>, <code>suspended</code>, <code>revoked</code>, <code>expired</code></td>
+</tr>
+<tr>
+<td><strong>issued_date</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+<tr>
+<td><strong>expiration_date</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+</tbody></table>
+<h2 id='policy'>Policy</h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"carrier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"effective_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-20"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>type</strong></td>
+<td>string</td>
+<td>Valid options: see <strong><a href="#policy-type">Enums - Policy Type</a></strong></td>
+</tr>
+<tr>
+<td><strong>carrier</strong></td>
+<td>string</td>
+<td>Valid options: see <strong><a href="#carrier">Enums - Carrier</a></strong></td>
+</tr>
+<tr>
+<td><strong>policy_number</strong></td>
+<td>string</td>
+<td>e.g. &quot;6048035635&quot;</td>
+</tr>
+<tr>
+<td><strong>effective_date</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+<tr>
+<td><strong>expiration_date</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+</tbody></table>
+<h2 id='vehicle'>Vehicle</h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"vin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2T3RWRFV3KW021971"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2019</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toyota"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RAV4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"trim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XLE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ownership_start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-21"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ownership_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leased"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lease_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"finance_duration"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"annual_mileage"</span><span class="p">:</span><span class="w"> </span><span class="mi">12000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"odometer"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cost_new"</span><span class="p">:</span><span class="w"> </span><span class="mi">3999500</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"primary_use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"work"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lienholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toyota Financial Services"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"anti_lock_brakes"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"anti_theft_device"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rideshare"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"garaging"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"530 Howard St"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ste 470"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"San Francisco"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94105"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lienholder"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PO BOX 105386"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Atlanta"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GA"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30348-5386"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>vin</strong></td>
+<td>string</td>
+<td>17 alphanumeric characters</td>
+</tr>
+<tr>
+<td><strong>year</strong></td>
+<td>integer</td>
+<td>e.g. 2021</td>
+</tr>
+<tr>
+<td><strong>make</strong></td>
+<td>string</td>
+<td>Valid options: see <strong><a href="#vehicle-make">Enums - Vehicle Make</a></strong></td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td>string</td>
+<td>e.g. &quot;RAV4&quot;</td>
+</tr>
+<tr>
+<td><strong>trim</strong></td>
+<td>string</td>
+<td>e.g. &quot;XLE&quot;</td>
+</tr>
+<tr>
+<td><strong>ownership_start</strong></td>
+<td>string</td>
+<td>&quot;YYYY-MM-DD&quot; format</td>
+</tr>
+<tr>
+<td><strong>ownership_type</strong></td>
+<td>string</td>
+<td>Only available when reading from <code>GET /people</code>. Valid options: <code>owned</code>, <code>financed</code>, <code>leased</code>, <code>trade_in</code>, <code>other</code></td>
+</tr>
+<tr>
+<td><strong>lease_duration</strong></td>
+<td>integer</td>
+<td>Only applicable when <code>.type == &quot;leased&quot;</code>. In months</td>
+</tr>
+<tr>
+<td><strong>finance_duration</strong></td>
+<td>integer</td>
+<td>Only applicable when <code>.type == &quot;financed&quot;</code>. In months</td>
+</tr>
+<tr>
+<td><strong>annual_mileage</strong></td>
+<td>integer</td>
+<td>In miles</td>
+</tr>
+<tr>
+<td><strong>odometer</strong></td>
+<td>integer</td>
+<td>In miles</td>
+</tr>
+<tr>
+<td><strong>cost_new</strong></td>
+<td>integer</td>
+<td>In cents</td>
+</tr>
+<tr>
+<td><strong>primary_use</strong></td>
+<td>string</td>
+<td>Valid options: <code>work</code>, <code>pleasure</code>, <code>school</code>, <code>business</code>, <code>agricultural</code></td>
+</tr>
+<tr>
+<td><strong>lienholder</strong></td>
+<td>string</td>
+<td>e.g. &quot;Toyota Financial Services&quot;</td>
+</tr>
+<tr>
+<td><strong>anti_lock_brakes</strong></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>anti_theft_device</strong></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>rideshare</strong></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td>Array&lt;<strong><a href="#address">Address</a></strong>&gt;</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='flow'>Flow</h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"flow_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aBcDeF"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"flow_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apps.autocomplete.io/aBcDeF"</span><span class="p">,</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>flow_url</code> is the personalized insurance-shopping link for that customer.</p>
+
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>flow_identifier</strong></td>
+<td>string</td>
+<td>e.g. &quot;aBcDeF&quot;</td>
+</tr>
+<tr>
+<td><strong>flow_url</strong></td>
+<td>string</td>
+<td>e.g. &quot;https://apps.autocomplete.io/aBcDeF&quot;</td>
+</tr>
+</tbody></table>
+<h1 id='enums'>Enums</h1>
+<p>When submitting, all values are case-insensitive. Spaces and underscores are interchangeable.</p>
+
+<p>For example, <code>&quot;american_family&quot;</code>, <code>&quot;american family&quot;</code>, and <code>&quot;AMERICAN FAMILY&quot;</code> will all be accepted as a valid alternatives for <code>&quot;American Family&quot;</code>. However, responses returned from the API will always be formatted as shown.</p>
+<h2 id='carrier'>Carrier</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"AAA"</span><span class="w">
+</span><span class="s2">"Allstate"</span><span class="w">
+</span><span class="s2">"American Family"</span><span class="w">
+</span><span class="s2">"American National"</span><span class="w">
+</span><span class="s2">"Amica Mutual"</span><span class="w">
+</span><span class="s2">"Auto Owners"</span><span class="w">
+</span><span class="s2">"Bear River"</span><span class="w">
+</span><span class="s2">"Chubb"</span><span class="w">
+</span><span class="s2">"Country Financial"</span><span class="w">
+</span><span class="s2">"Encompass"</span><span class="w">
+</span><span class="s2">"Erie"</span><span class="w">
+</span><span class="s2">"Esurance"</span><span class="w">
+</span><span class="s2">"Farmers"</span><span class="w">
+</span><span class="s2">"Foremost"</span><span class="w">
+</span><span class="s2">"Geico"</span><span class="w">
+</span><span class="s2">"Hanover"</span><span class="w">
+</span><span class="s2">"Heritage"</span><span class="w">
+</span><span class="s2">"Hippo"</span><span class="w">
+</span><span class="s2">"Homesite"</span><span class="w">
+</span><span class="s2">"Kemper"</span><span class="w">
+</span><span class="s2">"Kentucky Farm Bureau"</span><span class="w">
+</span><span class="s2">"Liberty Mutual"</span><span class="w">
+</span><span class="s2">"Mercury"</span><span class="w">
+</span><span class="s2">"Metlife"</span><span class="w">
+</span><span class="s2">"National General"</span><span class="w">
+</span><span class="s2">"Nationwide"</span><span class="w">
+</span><span class="s2">"Progressive"</span><span class="w">
+</span><span class="s2">"Safeco"</span><span class="w">
+</span><span class="s2">"Shelter"</span><span class="w">
+</span><span class="s2">"State Auto"</span><span class="w">
+</span><span class="s2">"State Farm"</span><span class="w">
+</span><span class="s2">"Travelers"</span><span class="w">
+</span><span class="s2">"Universal"</span><span class="w">
+</span><span class="s2">"USAA"</span><span class="w">
+</span></code></pre></div><h2 id='policy-type'>Policy Type</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"auto"</span><span class="w">
+</span><span class="s2">"boat"</span><span class="w">
+</span><span class="s2">"business_owners"</span><span class="w">
+</span><span class="s2">"combo"</span><span class="w">
+</span><span class="s2">"commercial_auto"</span><span class="w">
+</span><span class="s2">"commercial_umbrella"</span><span class="w">
+</span><span class="s2">"condo"</span><span class="w">
+</span><span class="s2">"earthquake"</span><span class="w">
+</span><span class="s2">"farmowner"</span><span class="w">
+</span><span class="s2">"fire"</span><span class="w">
+</span><span class="s2">"flood"</span><span class="w">
+</span><span class="s2">"homeowners"</span><span class="w">
+</span><span class="s2">"landlord"</span><span class="w">
+</span><span class="s2">"life"</span><span class="w">
+</span><span class="s2">"motorcycle"</span><span class="w">
+</span><span class="s2">"personal_articles"</span><span class="w">
+</span><span class="s2">"recreational_vehicle"</span><span class="w">
+</span><span class="s2">"renters"</span><span class="w">
+</span><span class="s2">"snowmobile"</span><span class="w">
+</span><span class="s2">"term_life"</span><span class="w">
+</span><span class="s2">"trailer"</span><span class="w">
+</span><span class="s2">"umbrella"</span><span class="w">
+</span><span class="s2">"universal_life"</span><span class="w">
+</span><span class="s2">"whole_life"</span><span class="w">
+</span></code></pre></div><h2 id='vehicle-make'>Vehicle Make</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"Acura"</span><span class="w">
+</span><span class="s2">"Alfa Romeo"</span><span class="w">
+</span><span class="s2">"Aston Martin"</span><span class="w">
+</span><span class="s2">"Audi"</span><span class="w">
+</span><span class="s2">"BMW"</span><span class="w">
+</span><span class="s2">"Bentley"</span><span class="w">
+</span><span class="s2">"Bollinger"</span><span class="w">
+</span><span class="s2">"Bugatti"</span><span class="w">
+</span><span class="s2">"Buick"</span><span class="w">
+</span><span class="s2">"Cadillac"</span><span class="w">
+</span><span class="s2">"Canoo"</span><span class="w">
+</span><span class="s2">"Chevrolet"</span><span class="w">
+</span><span class="s2">"Chrysler"</span><span class="w">
+</span><span class="s2">"Dodge"</span><span class="w">
+</span><span class="s2">"Ferrari"</span><span class="w">
+</span><span class="s2">"Fiat"</span><span class="w">
+</span><span class="s2">"Fisker"</span><span class="w">
+</span><span class="s2">"Ford"</span><span class="w">
+</span><span class="s2">"GMC"</span><span class="w">
+</span><span class="s2">"Genesis"</span><span class="w">
+</span><span class="s2">"Honda"</span><span class="w">
+</span><span class="s2">"Hummer"</span><span class="w">
+</span><span class="s2">"Hyundai"</span><span class="w">
+</span><span class="s2">"Infiniti"</span><span class="w">
+</span><span class="s2">"Jaguar"</span><span class="w">
+</span><span class="s2">"Jeep"</span><span class="w">
+</span><span class="s2">"Karma"</span><span class="w">
+</span><span class="s2">"Kia"</span><span class="w">
+</span><span class="s2">"Lamborghini"</span><span class="w">
+</span><span class="s2">"Land Rover"</span><span class="w">
+</span><span class="s2">"Lexus"</span><span class="w">
+</span><span class="s2">"Lincoln"</span><span class="w">
+</span><span class="s2">"Lordstown"</span><span class="w">
+</span><span class="s2">"Lotus"</span><span class="w">
+</span><span class="s2">"Lucid"</span><span class="w">
+</span><span class="s2">"Maserati"</span><span class="w">
+</span><span class="s2">"Maybach"</span><span class="w">
+</span><span class="s2">"Mazda"</span><span class="w">
+</span><span class="s2">"McLaren"</span><span class="w">
+</span><span class="s2">"Mercedes"</span><span class="w">
+</span><span class="s2">"Mercury"</span><span class="w">
+</span><span class="s2">"Mini"</span><span class="w">
+</span><span class="s2">"Mitsubishi"</span><span class="w">
+</span><span class="s2">"Nikola"</span><span class="w">
+</span><span class="s2">"Nissan"</span><span class="w">
+</span><span class="s2">"Oldsmobile"</span><span class="w">
+</span><span class="s2">"Polestar"</span><span class="w">
+</span><span class="s2">"Pontiac"</span><span class="w">
+</span><span class="s2">"Porsche"</span><span class="w">
+</span><span class="s2">"Plymouth"</span><span class="w">
+</span><span class="s2">"Ram"</span><span class="w">
+</span><span class="s2">"Rivian"</span><span class="w">
+</span><span class="s2">"Rolls Royce"</span><span class="w">
+</span><span class="s2">"Saab"</span><span class="w">
+</span><span class="s2">"Saturn"</span><span class="w">
+</span><span class="s2">"Scion"</span><span class="w">
+</span><span class="s2">"Smart"</span><span class="w">
+</span><span class="s2">"Subaru"</span><span class="w">
+</span><span class="s2">"Suzuki"</span><span class="w">
+</span><span class="s2">"Tesla"</span><span class="w">
+</span><span class="s2">"Toyota"</span><span class="w">
+</span><span class="s2">"Volkswagen"</span><span class="w">
+</span><span class="s2">"Volvo"</span><span class="w">
+</span></code></pre></div><h1 id='response-codes'>Response Codes</h1>
+<table><thead>
+<tr>
+<th><strong>Response Code</strong></th>
+<th><strong>Definition</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>200 (OK)</strong></td>
+<td>The request was processed as expected, and the response includes some data.</td>
+</tr>
+<tr>
+<td><strong>204 (No Content)</strong></td>
+<td>The request was processed as expected, but the response is empty.</td>
+</tr>
+<tr>
+<td><strong>400 (Bad Request)</strong></td>
+<td>A parameter, format, or structure of the request is incorrect.</td>
+</tr>
+<tr>
+<td><strong>401 (Unauthorized)</strong></td>
+<td>The authentication credentials are missing or incorrect.</td>
+</tr>
+<tr>
+<td><strong>403 (Forbidden)</strong></td>
+<td>The provided credentials do not have access to this endpoint or resource.</td>
+</tr>
+<tr>
+<td><strong>404 (Not Found)</strong></td>
+<td>Either the endpoint does not exist, or the requested resource does not exist.</td>
+</tr>
+<tr>
+<td><strong>429 (Too Many Requests)</strong></td>
+<td>The number of requests have exceeded the rate limit, see <strong>Rate Limits</strong>.</td>
+</tr>
+<tr>
+<td><strong>5XX</strong></td>
+<td>An uncaught server error has occurred. This usually indicates a system-level failure. Please contact us if you see this repeatedly.</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
-</tr>
-</tbody></table>
+<blockquote>
+<p>Sample error response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Field name 'vehicle.vin' must be a 17-character alphanumeric string."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The category of error will generally be indicated by the HTTP response code. Additionally, the API will attempt to return a human-readable error message.</p>
+<h2 id='handling-errors'>Handling Errors</h2><div class="highlight"><pre class="highlight python tab-python"><code></code></pre></div>
+<p>Something something</p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
                 <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
