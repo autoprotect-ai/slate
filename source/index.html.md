@@ -97,7 +97,7 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
             "trim": "45 TFSI",
             "ownership_start": "2022-03-09",
             "ownership_type": "leased",
-            "lease_term": 36,
+            "lease_duration": 36,
             "annual_mileage": 12000,
             "odometer": 57,
             "cost_new": 3990000,
