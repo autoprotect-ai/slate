@@ -142,7 +142,13 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
             "marital_status": "married",
             "relationship": "spouse"
         }
-    ]
+    ],
+    "source": {
+        "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399",
+        "type": "cdk",
+        "external_customer_number": "928880",
+        "external_deal_number": "41706",
+    }
 }
 ```
 
@@ -240,7 +246,10 @@ data = {
         {
             "vin": "WAULH54B0YN028245"
         }
-    ]
+    ],
+    "source": {
+        "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399"
+    }
 }
 
 r = requests.post('https://api.autocomplete.io/people', auth=(api_key, api_secret), headers=headers, json=data)
@@ -262,6 +271,7 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 | **addresses** | Must contain at least one valid address |
 | **drivers_license** | Must include `number` and `state` |
 | **new_vehicles** | Must contain at least one vehicle, with `vin` |
+| **source** | Indicates the dealer of origin |
 
 For all preferred fields, see [Models - Person](#person).
 
@@ -294,6 +304,7 @@ This is the model used to represent a customer.
 | **vehicles** | Array<**[Vehicle](#vehicle)**> | Never submitted. Only available when reading from `GET /people`. |
 | **related_people** | Array<**Person**> |  |
 | **flow** | <**[Flow](#flow)**> | Never submitted |
+| **source** | <**[Source](#source)**> | Used only when submitting to `POST /people` |
 
 ## PhoneNumber
 
@@ -491,6 +502,39 @@ The `flow_url` is the personalized insurance-shopping link for that customer.
 | --- | --- | --- |
 | **flow_identifier** | string | e.g. "aBcDeF" |
 | **flow_url** | string | e.g. "https://apps.autocomplete.io/aBcDeF" |
+
+## Source
+
+> Example describing a customer originating from CDK:
+
+```json
+{
+    "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399", // AutoComplete-assigned
+    "type": "cdk",
+    "external_customer_number": "928880", // CDK refers to this field as <CustNo>
+    "external_deal_number": "41706", // CDK refers to this field as <DealNo>
+}
+```
+
+> Example describing a customer originating from DealerTrack:
+
+```json
+{
+    "dealer_id": "88753dfc-5ede-49cd-92b4-7b63d235d16c", // AutoComplete-assigned
+    "type": "dealertrack",
+    "external_customer_number": "1028648", // DealerTrack refers to this field as <CustomerNumber>
+    "external_deal_number": "6302", // DealerTrack refers to this field as <DealNumber>
+}
+```
+
+Informs AutoComplete about the origin of customer information. This is usually a specific combination of dealer, DMS type, and customer number.
+
+| **Parameter** | **Type** | **Description** |
+| --- | --- | --- |
+| **dealer_id** | string | AutoComplete's _internal_ UUID of the origin dealer, e.g. "4119799d-215f-4f49-b38a-0b94c2448399" |
+| **type** | string | Valid options: `automate`, `cdk`, `dealertrack`, `reynolds` |
+| **external_customer_number** | string | The customer identifier used by the DMS |
+| **external_deal_number** | string | The deal identifier used by the DMS |
 
 # Enums
 
