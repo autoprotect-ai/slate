@@ -227,8 +227,7 @@ data = {
     "phone_numbers": [
         {
             "number": "+15551230000",
-            "type": "mobile",
-            "sms_consent": True
+            "type": "mobile"
         }
     ],
     "addresses": [
@@ -267,7 +266,7 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 | **first_name** |  |
 | **last_name** |  |
 | **date_of_birth** |  |
-| **phone_numbers** | Must contain at least one valid phone number, with `sms_consent: true`, when configured for **AutoComplete-Initiated Messaging** |
+| **phone_numbers** | Must contain at least one valid phone number when configured for **AutoComplete-Initiated Messaging** |
 | **addresses** | Must contain at least one valid address |
 | **drivers_license** | Must include `number` and `state` |
 | **new_vehicles** | Must contain at least one vehicle, with `vin` |
