@@ -235,12 +235,10 @@ data = {
             "full_address": "555 Main St., Pleasantville, CA 94105"
         }
     ],
-    "drivers_license": [
-        {
-            "number": "D1234567",
-            "state": "CA"
-        }
-    ],
+    "drivers_license": {
+        "number": "D1234567",
+        "state": "CA"
+    },
     "new_vehicles": [
         {
             "vin": "WAULH54B0YN028245"
