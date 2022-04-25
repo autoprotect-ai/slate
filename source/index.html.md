@@ -70,15 +70,17 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
     "addresses": [
         {
             "type": "physical",
-            "full_address": "555 Main St., Pleasantville, CA 94105"
+            "address_1": "555 Main St.",
+            "city": "Pleasantville",
+            "state": "CA",
+            "postal_code": "94105"
         },
         {
             "type": "mailing",
             "address_1": "PO Box 100",
             "city": "San Francisco",
             "state": "CA",
-            "postal_code": "94105",
-            "country": "United States"
+            "postal_code": "94105"
         }
     ],
     "drivers_license": {
@@ -107,11 +109,17 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
             "addresses": [
                 {
                     "type": "garaging",
-                    "full_address": "555 Main St., Pleasantville, CA 94105"
+                    "address_1": "555 Main St",
+                    "city": "Pleasantville",
+                    "state": "CA",
+                    "postal_code": "94105-1023"
                 },
                 {
                     "type": "lienholder",
-                    "full_address": "1 Toyota Way, Plano, TX 75024"
+                    "address_1": "1 Toyota Way",
+                    "city": "Plano",
+                    "state": "TX",
+                    "postal_code": "75024"
                 }
             ]
         }
@@ -232,7 +240,10 @@ data = {
     ],
     "addresses": [
         {
-            "full_address": "555 Main St., Pleasantville, CA 94105"
+            "address_1": "555 Main St",
+            "city": "Pleasantville",
+            "state": "CA",
+            "postal_code": "94105"
         }
     ],
     "drivers_license": {
@@ -339,7 +350,7 @@ This is the model used to represent a customer.
 
 ## Address
 
-> Example of a parsed address:
+> Example:
 
 ```json
 {
@@ -352,27 +363,16 @@ This is the model used to represent a customer.
 }
 ```
 
-> Example of an unparsed address:
-
-```json
-{
-    "type": "physical",
-    "full_address": "931 Thomas Jefferson Parkway, Charlottesville, VA 22902"
-}
-```
-
-Addresses can be submitted either fully parsed (i.e. broken down into `address_1`, `city`, `state`, etc. constituent parts) or as unparsed text using the `full_address` field. If both are submitted, the parsed fields will take precedence.
+All addresses are assumed to be in the United States.
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
-| **type** | string | Valid options: `mailing`, `physical`, `garaging`, `lienholder` |
+| **type** | string | Valid options: `mailing`, `physical`, `garaging`, `lienholder`. Defaults to `physical` |
 | **address_1** | string | The first line of the address, e.g. "530 Howard St" |
 | **address_2** | string | The second line of the address, e.g. "Unit 470" |
 | **city** | string | e.g. "San Francisco" |
 | **state** | string | Two-letter postal abbreviation, e.g. "CA" |
 | **postal_code** | string | e.g. "94105" or "94105-0907" |
-| **country** | string | The only supported country is "United States". Will default to "United States" |
-| **full_address** | string | e.g. "530 Howard St, Unit 470, San Francisco, CA 94105-0907" |
 
 ## DriversLicense
 
