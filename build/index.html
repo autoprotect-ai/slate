@@ -505,11 +505,11 @@
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"policies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"carrier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"policy_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"carrier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geico"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"carrier_policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"effective_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-20"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
+            </span><span class="nl">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"related_people"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -952,11 +952,11 @@
 <p>Example:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"carrier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"carrier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geico"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"carrier_policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"604-80-35-635"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"effective_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-20"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
+    </span><span class="nl">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-20"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -967,17 +967,17 @@
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>type</strong></td>
+<td><strong>policy_type</strong></td>
 <td>string</td>
 <td>Valid options: see <strong><a href="#policy-type">Enums - Policy Type</a></strong></td>
 </tr>
 <tr>
-<td><strong>carrier</strong></td>
+<td><strong>carrier_name</strong></td>
 <td>string</td>
 <td>Valid options: see <strong><a href="#carrier">Enums - Carrier</a></strong></td>
 </tr>
 <tr>
-<td><strong>policy_number</strong></td>
+<td><strong>carrier_policy_number</strong></td>
 <td>string</td>
 <td>e.g. &quot;6048035635&quot;</td>
 </tr>
@@ -987,7 +987,7 @@
 <td>&quot;YYYY-MM-DD&quot; format</td>
 </tr>
 <tr>
-<td><strong>expiration_date</strong></td>
+<td><strong>expiry_date</strong></td>
 <td>string</td>
 <td>&quot;YYYY-MM-DD&quot; format</td>
 </tr>
@@ -1279,17 +1279,15 @@
 </span><span class="s2">"Audi"</span><span class="w">
 </span><span class="s2">"BMW"</span><span class="w">
 </span><span class="s2">"Bentley"</span><span class="w">
-</span><span class="s2">"Bollinger"</span><span class="w">
 </span><span class="s2">"Bugatti"</span><span class="w">
 </span><span class="s2">"Buick"</span><span class="w">
 </span><span class="s2">"Cadillac"</span><span class="w">
-</span><span class="s2">"Canoo"</span><span class="w">
 </span><span class="s2">"Chevrolet"</span><span class="w">
 </span><span class="s2">"Chrysler"</span><span class="w">
 </span><span class="s2">"Dodge"</span><span class="w">
 </span><span class="s2">"Ferrari"</span><span class="w">
 </span><span class="s2">"Fiat"</span><span class="w">
-</span><span class="s2">"Fisker"</span><span class="w">
+</span><span class="s2">"Fisker Automotive"</span><span class="w">
 </span><span class="s2">"Ford"</span><span class="w">
 </span><span class="s2">"GMC"</span><span class="w">
 </span><span class="s2">"Genesis"</span><span class="w">
@@ -1312,7 +1310,7 @@
 </span><span class="s2">"Maybach"</span><span class="w">
 </span><span class="s2">"Mazda"</span><span class="w">
 </span><span class="s2">"McLaren"</span><span class="w">
-</span><span class="s2">"Mercedes"</span><span class="w">
+</span><span class="s2">"Mercedes Benz"</span><span class="w">
 </span><span class="s2">"Mercury"</span><span class="w">
 </span><span class="s2">"Mini"</span><span class="w">
 </span><span class="s2">"Mitsubishi"</span><span class="w">
@@ -1323,7 +1321,7 @@
 </span><span class="s2">"Pontiac"</span><span class="w">
 </span><span class="s2">"Porsche"</span><span class="w">
 </span><span class="s2">"Plymouth"</span><span class="w">
-</span><span class="s2">"Ram"</span><span class="w">
+</span><span class="s2">"RAM"</span><span class="w">
 </span><span class="s2">"Rivian"</span><span class="w">
 </span><span class="s2">"Rolls Royce"</span><span class="w">
 </span><span class="s2">"Saab"</span><span class="w">

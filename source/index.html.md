@@ -135,11 +135,11 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
     ],
     "policies": [
         {
-            "type": "auto",
-            "carrier": "Geico",
-            "policy_number": "604-80-35-635",
+            "policy_type": "auto",
+            "carrier_name": "geico",
+            "carrier_policy_number": "604-80-35-635",
             "effective_date": "2021-12-20",
-            "expiration_date": "2022-05-20"
+            "expiry_date": "2022-05-20"
         }
     ],
     "related_people": [
@@ -402,21 +402,21 @@ All addresses are assumed to be in the United States.
 
 ```json
 {
-    "type": "auto",
-    "carrier": "Geico",
-    "policy_number": "604-80-35-635",
+    "policy_type": "auto",
+    "carrier_name": "geico",
+    "carrier_policy_number": "604-80-35-635",
     "effective_date": "2021-12-20",
-    "expiration_date": "2022-05-20"
+    "expiry_date": "2022-05-20"
 }
 ```
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
-| **type** | string | Valid options: see **[Enums - Policy Type](#policy-type)** |
-| **carrier** | string | Valid options: see **[Enums - Carrier](#carrier)** |
-| **policy_number** | string | e.g. "6048035635" |
+| **policy_type** | string | Valid options: see **[Enums - Policy Type](#policy-type)** |
+| **carrier_name** | string | Valid options: see **[Enums - Carrier](#carrier)** |
+| **carrier_policy_number** | string | e.g. "6048035635" |
 | **effective_date** | string | "YYYY-MM-DD" format |
-| **expiration_date** | string | "YYYY-MM-DD" format |
+| **expiry_date** | string | "YYYY-MM-DD" format |
 
 ## Vehicle
 
@@ -616,17 +616,15 @@ For example, `"american_family"`, `"american family"`, and `"AMERICAN FAMILY"` w
 "Audi"
 "BMW"
 "Bentley"
-"Bollinger"
 "Bugatti"
 "Buick"
 "Cadillac"
-"Canoo"
 "Chevrolet"
 "Chrysler"
 "Dodge"
 "Ferrari"
 "Fiat"
-"Fisker"
+"Fisker Automotive"
 "Ford"
 "GMC"
 "Genesis"
@@ -649,7 +647,7 @@ For example, `"american_family"`, `"american family"`, and `"AMERICAN FAMILY"` w
 "Maybach"
 "Mazda"
 "McLaren"
-"Mercedes"
+"Mercedes Benz"
 "Mercury"
 "Mini"
 "Mitsubishi"
@@ -660,7 +658,7 @@ For example, `"american_family"`, `"american family"`, and `"AMERICAN FAMILY"` w
 "Pontiac"
 "Porsche"
 "Plymouth"
-"Ram"
+"RAM"
 "Rivian"
 "Rolls Royce"
 "Saab"
