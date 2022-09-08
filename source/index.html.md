@@ -246,10 +246,6 @@ data = {
             "postal_code": "94105"
         }
     ],
-    "drivers_license": {
-        "number": "D1234567",
-        "state": "CA"
-    },
     "new_vehicles": [
         {
             "vin": "WAULH54B0YN028245"
@@ -277,7 +273,6 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 | **date_of_birth** |  |
 | **phone_numbers** | Must contain at least one valid phone number when configured for **AutoComplete-Initiated Messaging** |
 | **addresses** | Must contain at least one valid address |
-| **drivers_license** | Must include `number` and `state` |
 | **new_vehicles** | Must contain at least one vehicle, with `vin` |
 | **source** | Indicates the dealer of origin |
 
