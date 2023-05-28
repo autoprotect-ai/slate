@@ -318,6 +318,9 @@
                   <li>
                     <a href="#example-use-case" class="toc-h2 toc-link" data-title="Example Use Case">Example Use Case</a>
                   </li>
+                  <li>
+                    <a href="#current-insurance-verification" class="toc-h2 toc-link" data-title="Current Insurance Verification">Current Insurance Verification</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -328,6 +331,9 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#post-people" class="toc-h2 toc-link" data-title="POST /people"><code>POST /people</code></a>
+                  </li>
+                  <li>
+                    <a href="#get-people-lt-flow_identifier-gt-verification_results" class="toc-h2 toc-link" data-title="GET /people/&lt;flow_identifier&gt;/verification_results"><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></a>
                   </li>
               </ul>
           </li>
@@ -525,7 +531,7 @@
         </span><span class="nl">"dealer_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4119799d-215f-4f49-b38a-0b94c2448399"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cdk"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"external_customer_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"928880"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"external_deal_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41706"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"external_deal_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41706"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -561,6 +567,28 @@
 <p>If you&#39;ve configured your integration for <strong>Dealer-Initiated Messaging</strong>, AutoComplete simply returns Jon&#39;s personalized link (e.g. &quot;https://app.autocomplete.io/aBcDeF&quot;) back to you. On the other hand, if you&#39;ve configured your integration for <strong>AutoComplete-Initiated Messaging</strong>, AutoComplete will engage with Jon directly via his preferred contact method.</p>
 
 <p>Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.</p>
+<h2 id='current-insurance-verification'>Current Insurance Verification</h2>
+<blockquote>
+<p>Sample submission to <code>POST /people</code> with a verification callback:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">Remaining</span><span class="w"> </span><span class="err">fields</span><span class="w"> </span><span class="err">truncated</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">brevity</span><span class="w">
+    </span><span class="err">//...</span><span class="w">
+    </span><span class="nl">"verification_callback"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.acmedealer.com/autocomplete_callback"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>As part of the shopping process, AutoComplete attempts to retrieve the customer&#39;s current insurance details from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.</p>
+
+<p>Depending on the customer&#39;s current insurance carrier, this process can take up to several minutes. To receive this verification data, you can either:</p>
+
+<ul>
+<li>poll the results periodically using the <a href="#get-people-lt-flow_identifier-gt-verification_results"><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></a> endpoint, or</li>
+<li>register for an asynchronous callback when calling the <a href="#post-people"><code>POST /people</code></a> endpoint.</li>
+</ul>
+
+<p>To register for a callback, include the <code>verification_callback</code> parameter in your <code>POST /people</code> request, as shown. AutoComplete will make a <code>POST</code> request to your specified URL as soon as results are available. The payload structure is identical to the one returned from <a href="#get-people-lt-flow_identifier-gt-verification_results"><code>GET .../verification_results</code></a>.</p>
 <h1 id='technical-overview'>Technical Overview</h1>
 <blockquote>
 <p>Example Request:</p>
@@ -606,10 +634,6 @@
             <span class="s">"postal_code"</span><span class="p">:</span> <span class="s">"94105"</span>
         <span class="p">}</span>
     <span class="p">],</span>
-    <span class="s">"drivers_license"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s">"number"</span><span class="p">:</span> <span class="s">"D1234567"</span><span class="p">,</span>
-        <span class="s">"state"</span><span class="p">:</span> <span class="s">"CA"</span>
-    <span class="p">},</span>
     <span class="s">"new_vehicles"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s">"vin"</span><span class="p">:</span> <span class="s">"WAULH54B0YN028245"</span>
@@ -654,10 +678,6 @@
 <td>Must contain at least one valid address</td>
 </tr>
 <tr>
-<td><strong>drivers_license</strong></td>
-<td>Must include <code>number</code> and <code>state</code></td>
-</tr>
-<tr>
 <td><strong>new_vehicles</strong></td>
 <td>Must contain at least one vehicle, with <code>vin</code></td>
 </tr>
@@ -668,6 +688,79 @@
 </tbody></table>
 
 <p>For all preferred fields, see <a href="#person">Models - Person</a>.</p>
+<h2 id='get-people-lt-flow_identifier-gt-verification_results'><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></h2>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">api_key</span> <span class="o">=</span> <span class="c1"># &lt;Your API Key&gt;
+</span><span class="n">api_secret</span> <span class="o">=</span> <span class="c1"># &lt;Your API Secret&gt;
+</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">flow_identifier</span> <span class="o">=</span> <span class="s">'uVwXyZ'</span>  <span class="c1"># Originally returned by the /people endpoint
+</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s">'https://api.autocomplete.io/people/</span><span class="si">{</span><span class="n">flow_identifier</span><span class="si">}</span><span class="s">/verification_results'</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"flow_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uVwXyZ"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"done"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"policy_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"carrier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allstate"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"carrier_policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5789000AZ"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"effective_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-01-01"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"expiry_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-01"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"coverages"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"bodily_injury_liability"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"per_person_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">3000000</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"per_incident_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">6000000</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"property_damage_liability"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"per_incident_limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">2500000</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"comprehensive"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"deductible"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"collision"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"deductible"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Retrieve the customer&#39;s current insurance information. The response payload is also used when AutoComplete returns verification results via an asynchronous callback.</p>
+
+<table><thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>flow_identifier</strong></td>
+<td>string</td>
+<td>Used to associate responses to customers when returned by an asynchronous callback</td>
+</tr>
+<tr>
+<td><strong>status</strong></td>
+<td>string</td>
+<td>Status of the automatic verification process. Valid options: <code>pending</code>, <code>succeeded</code>, <code>failed</code></td>
+</tr>
+<tr>
+<td><strong>policy</strong></td>
+<td><a href="#policy">Policy</a></td>
+<td>The customer&#39;s current auto insurance policy</td>
+</tr>
+</tbody></table>
 <h1 id='models'>Models</h1><h2 id='person'>Person</h2>
 <p>This is the model used to represent a customer.</p>
 
@@ -771,7 +864,7 @@
 <tr>
 <td><strong>vehicles</strong></td>
 <td>Array&lt;<strong><a href="#vehicle">Vehicle</a></strong>&gt;</td>
-<td>Never submitted. Only available when reading from <code>GET /people</code>.</td>
+<td>Never submitted. Only available when reading from <code>GET /people</code></td>
 </tr>
 <tr>
 <td><strong>related_people</strong></td>
