@@ -155,7 +155,7 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
         "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399",
         "type": "cdk",
         "external_customer_number": "928880",
-        "external_deal_number": "41706",
+        "external_deal_number": "41706"
     }
 }
 ```
@@ -194,6 +194,29 @@ Using the information you just submitted plus data from third-party partners, Au
 If you've configured your integration for **Dealer-Initiated Messaging**, AutoComplete simply returns Jon's personalized link (e.g. "https://app.autocomplete.io/aBcDeF") back to you. On the other hand, if you've configured your integration for **AutoComplete-Initiated Messaging**, AutoComplete will engage with Jon directly via his preferred contact method.
 
 Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
+
+## Current Insurance Verification
+
+> Sample submission to `POST /people` with a verification callback:
+
+```json
+{
+    "first_name": "Jon",
+    "last_name": "Snow",
+    // Remaining fields truncated for brevity
+    //...
+    "verification_callback": "https://www.acmedealer.com/autocomplete_callback"
+}
+```
+
+As part of the shopping process, AutoComplete attempts to retrieve the customer's current insurance details from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.
+
+Depending on the customer's current insurance carrier, this process can take up to several minutes. To receive this verification data, you can either:
+
+* poll the results periodically using the [`GET /people/<flow_identifier>/verification_results`](#get-people-lt-flow_identifier-gt-verification_results) endpoint, or
+* register for an asynchronous callback when calling the [`POST /people`](#post-people) endpoint.
+
+To register for a callback, include the `verification_callback` parameter in your `POST /people` request, as shown. AutoComplete will make a `POST` request to your specified URL as soon as results are available. The payload structure is identical to the one returned from [`GET .../verification_results`](#get-people-lt-flow_identifier-gt-verification_results).
 
 # Technical Overview
 
@@ -278,6 +301,65 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 
 For all preferred fields, see [Models - Person](#person).
 
+## `GET /people/<flow_identifier>/verification_results`
+
+> Example:
+
+```python
+import requests
+
+api_key = # <Your API Key>
+api_secret = # <Your API Secret>
+
+headers = {'Content-Type': 'application/json'}
+
+flow_identifier = 'uVwXyZ'  # Originally returned by the /people endpoint
+
+r = requests.get(f'https://api.autocomplete.io/people/{flow_identifier}/verification_results', auth=(api_key, api_secret), headers=headers, json=data)
+
+if r.status_code == 200:
+    print(r.text)
+```
+
+> Sample response:
+
+```json
+{
+    "flow_identifier": "uVwXyZ",
+    "status": "done",
+    "policy": {
+        "policy_type": "auto",
+        "carrier_name": "Allstate",
+        "carrier_policy_number": "5789000AZ",
+        "effective_date": "2023-01-01",
+        "expiry_date": "2023-06-01",
+        "coverages": {
+            "bodily_injury_liability": {
+                "per_person_limit": 3000000,
+                "per_incident_limit": 6000000
+            },
+            "property_damage_liability": {
+                "per_incident_limit": 2500000
+            },
+            "comprehensive": {
+                "deductible": 100000
+            },
+            "collision": {
+                "deductible": 100000
+            }
+        }
+    }
+}
+```
+
+Retrieve the customer's current insurance information. The response payload is also used when AutoComplete returns verification results via an asynchronous callback.
+
+| **Parameter** | **Type** | **Description** |
+| --- | --- | --- |
+| **flow_identifier** | string | Used to associate responses to customers when returned by an asynchronous callback |
+| **status** | string | Status of the automatic verification process. Valid options: `pending`, `succeeded`, `failed` |
+| **policy** | [Policy](#policy) | The customer's current auto insurance policy |
+
 # Models
 
 ## Person
@@ -304,7 +386,7 @@ This is the model used to represent a customer.
 | **policies** | Array<**[Policy](#policy)**> |  |
 | **new_vehicles** | Array<**[Vehicle](#vehicle)**> | Used only when submitting to `POST /people` |
 | **trade_ins** | Array<**[Vehicle](#vehicle)**> | Used only when submitting to `POST /people` |
-| **vehicles** | Array<**[Vehicle](#vehicle)**> | Never submitted. Only available when reading from `GET /people`. |
+| **vehicles** | Array<**[Vehicle](#vehicle)**> | Never submitted. Only available when reading from `GET /people` |
 | **related_people** | Array<**Person**> |  |
 | **flow** | <**[Flow](#flow)**> | Never submitted |
 | **source** | <**[Source](#source)**> | Used only when submitting to `POST /people` |
