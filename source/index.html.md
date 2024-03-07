@@ -24,7 +24,7 @@ meta:
 
 Welcome to the AutoComplete Partner API! Dealer partners can use this API to create zero-effort insurance-shopping experiences for their customers.
 
-For each customer you submit, AutoComplete will generate and return a personalized insurance-shopping link (e.g. "https://app.autocomplete.io/aBcDeF"). When visiting that link, your customer will see his/her own contact, household, and vehicle details &mdash; in addition to your dealer profile &mdash; already pre-populated.
+For each customer you submit, AutoComplete will generate and return a personalized insurance-shopping link (e.g. "https://app.autocomplete.io/aBcDeF"). When visiting that link, your customer will see his/her own contact, household, and vehicle details &mdash; in addition to your dealer info &mdash; already pre-populated.
 
 You can use this personalized shopping link in one of several ways:
 
@@ -156,7 +156,8 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
         "type": "cdk",
         "external_customer_number": "928880",
         "external_deal_number": "41706"
-    }
+    },
+    "quote_requested": true,
 }
 ```
 
@@ -195,28 +196,16 @@ If you've configured your integration for **Dealer-Initiated Messaging**, AutoCo
 
 Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
 
-## Current Insurance Verification
-
-> Sample submission to `POST /people` with a verification callback:
-
-```json
-{
-    "first_name": "Jon",
-    "last_name": "Snow",
-    // Remaining fields truncated for brevity
-    //...
-    "verification_callback": "https://www.acmedealer.com/autocomplete_callback"
-}
-```
+## Insurance Verification Results (Optional)
 
 As part of the shopping process, AutoComplete attempts to retrieve the customer's current insurance details from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.
 
-Depending on the customer's current insurance carrier, this process can take up to several minutes. To receive this verification data, you can either:
+If you would like to receive this verification data, you can either:
 
-* poll the results periodically using the [`GET /people/<flow_identifier>/verification_results`](#get-people-lt-flow_identifier-gt-verification_results) endpoint, or
-* register for an asynchronous callback when calling the [`POST /people`](#post-people) endpoint.
+* poll the results periodically using the [`GET /people/<flow_identifier>/results`](#get-people-lt-flow_identifier-gt-results) endpoint, or
+* set up an asynchronous callback URL. 
 
-To register for a callback, include the `verification_callback` parameter in your `POST /people` request, as shown. AutoComplete will make a `POST` request to your specified URL as soon as results are available. The payload structure is identical to the one returned from [`GET .../verification_results`](#get-people-lt-flow_identifier-gt-verification_results).
+To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a `POST` request to your specified URL as soon as results are available. Results are typically returned in under 60 seconds. The structure of the webhook payload is identical to the returned from [`GET .../results`](#get-people-lt-flow_identifier-gt-results).
 
 # Technical Overview
 
@@ -301,7 +290,7 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 
 For all preferred fields, see [Models - Person](#person).
 
-## `GET /people/<flow_identifier>/verification_results`
+## `GET /people/<flow_identifier>/results`
 
 > Example:
 
@@ -313,7 +302,7 @@ api_secret = # <Your API Secret>
 
 headers = {'Content-Type': 'application/json'}
 
-flow_identifier = 'uVwXyZ'  # Originally returned by the /people endpoint
+flow_identifier = 'uVwXyZ'  # From the /people endpoint
 
 r = requests.get(f'https://api.autocomplete.io/people/{flow_identifier}/verification_results', auth=(api_key, api_secret), headers=headers, json=data)
 
@@ -326,8 +315,8 @@ if r.status_code == 200:
 ```json
 {
     "flow_identifier": "uVwXyZ",
-    "status": "done",
-    "policy": {
+    "verification_status": "success",
+    "verified_policy": {
         "policy_type": "auto",
         "carrier_name": "Allstate",
         "carrier_policy_number": "5789000AZ",
@@ -566,7 +555,7 @@ All addresses are assumed to be in the United States.
 ```json
 {
     "flow_identifier": "aBcDeF",
-    "flow_url": "https://apps.autocomplete.io/aBcDeF", 
+    "flow_url": "https://app.autocomplete.io/aBcDeF", 
 }
 ```
 
@@ -575,7 +564,7 @@ The `flow_url` is the personalized insurance-shopping link for that customer.
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
 | **flow_identifier** | string | e.g. "aBcDeF" |
-| **flow_url** | string | e.g. "https://apps.autocomplete.io/aBcDeF" |
+| **flow_url** | string | e.g. "https://app.autocomplete.io/aBcDeF" |
 
 ## Source
 
@@ -620,39 +609,110 @@ For example, `"american_family"`, `"american family"`, and `"AMERICAN FAMILY"` w
 
 ```json
 "AAA"
+"Acuity"
+"Adirondack"
+"Allmerica"
 "Allstate"
+"Ally Insurance"
 "American Family"
 "American National"
+"American Strategic"
 "Amica Mutual"
+"AmTrust Insurance"
+"Arrowhead"
+"ASI Progressive"
+"Aspire Advantage"
+"Aspire Savings"
+"AssuranceAmerica"
 "Auto Owners"
 "Bear River"
+"Branch"
+"Bristol West"
 "Chubb"
+"Cincinnati"
+"Clarendon"
+"Clearcover"
+"CNA Insurance"
+"Commonwealth"
 "Country Financial"
+"Cover"
+"Dairyland"
+"Direct General"
+"Electric"
+"Elephant"
 "Encompass"
+"Encova"
+"Equity Insurance"
 "Erie"
 "Esurance"
 "Farmers"
+"Farmers Union Insurance"
+"Fiesta"
+"First Chicago"
 "Foremost"
-"Geico"
+"Freedom National"
+"GAINSCO"
+"GEICO"
+"Germania"
+"GMAC"
+"Good2Go"
+"Grange"
+"Hallmark"
 "Hanover"
 "Heritage"
 "Hippo"
+"Home State County Mutual"
 "Homesite"
+"Horace Mann"
+"Infinity"
+"Infinity RSVP"
+"Infinity Special"
+"Integrity"
 "Kemper"
 "Kentucky Farm Bureau"
+"Leader"
 "Liberty Mutual"
+"Mapfre"
+"Markel Insurance"
+"Mendota Insurance"
 "Mercury"
+"Meritplan"
 "Metlife"
+"Metromile"
+"Mile Auto"
+"National General"
 "National General"
 "Nationwide"
+"Newport"
+"NYCM"
+"Plymouth Rock"
 "Progressive"
+"QBE"
+"Redpoint"
+"Root"
+"Safe Auto"
 "Safeco"
+"Safeway"
+"Secura"
+"SelectQuote"
 "Shelter"
+"Starr Indemnity"
 "State Auto"
 "State Farm"
+"Stillwater"
+"Sun Coast"
+"Texas Farm Bureau"
+"The General"
+"The Hartford"
+"Titan"
 "Travelers"
+"TSC Direct"
+"21st Century"
 "Universal"
+"USA Underwriters"
 "USAA"
+"West Bend Mutual"
+"Westfield"
 ```
 
 ## Policy Type
