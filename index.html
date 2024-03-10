@@ -319,7 +319,7 @@
                     <a href="#example-use-case" class="toc-h2 toc-link" data-title="Example Use Case">Example Use Case</a>
                   </li>
                   <li>
-                    <a href="#current-insurance-verification" class="toc-h2 toc-link" data-title="Current Insurance Verification">Current Insurance Verification</a>
+                    <a href="#optional-responses" class="toc-h2 toc-link" data-title="Optional Responses">Optional Responses</a>
                   </li>
               </ul>
           </li>
@@ -333,7 +333,7 @@
                     <a href="#post-people" class="toc-h2 toc-link" data-title="POST /people"><code>POST /people</code></a>
                   </li>
                   <li>
-                    <a href="#get-people-lt-flow_identifier-gt-verification_results" class="toc-h2 toc-link" data-title="GET /people/&lt;flow_identifier&gt;/verification_results"><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></a>
+                    <a href="#get-people-lt-flow_identifier-gt-results" class="toc-h2 toc-link" data-title="GET /people/&lt;flow_identifier&gt;/results"><code>GET /people/&lt;flow_identifier&gt;/results</code></a>
                   </li>
               </ul>
           </li>
@@ -413,7 +413,7 @@
 <p>We refer to options (1) and (2) as <strong>Dealer-Initiated Messaging</strong>, and option (3) as <strong>AutoComplete-Initiated Messaging</strong>.</p>
 <h2 id='example-use-case'>Example Use Case</h2>
 <blockquote>
-<p>Sample submission to <code>POST /people</code>:</p>
+<p>Example submission to <code>POST /people</code>:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
@@ -426,8 +426,6 @@
     </span><span class="nl">"employment_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employed"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"residence_ownership_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"own"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"age_first_licensed"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"consented_to_privacy_policy"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"consented_to_shop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551230000"</span><span class="p">,</span><span class="w">
@@ -538,14 +536,13 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Sample response:</p>
+<p>Example response:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ec694d9a-a3f8-4a55-95ff-de97d1bc945a"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
-    </span><span class="err">//</span><span class="w"> </span><span class="err">Submitted</span><span class="w"> </span><span class="err">fields</span><span class="w"> </span><span class="err">truncated</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">brevity</span><span class="w">
-    </span><span class="err">//...</span><span class="w">
+    </span><span class="err">...</span><span class="w">
     </span><span class="nl">"flow"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"flow_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uVwXyZ"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"flow_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.autocomplete.io/uVwXyZ"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Jon's</span><span class="w"> </span><span class="err">personalized</span><span class="w"> </span><span class="err">shopping</span><span class="w"> </span><span class="err">link</span><span class="w">
@@ -553,7 +550,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Sample error:</p>
+<p>Example error:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
@@ -569,55 +566,45 @@
 <p>If you&#39;ve configured your integration for <strong>Dealer-Initiated Messaging</strong>, AutoComplete simply returns Jon&#39;s personalized link (e.g. &quot;https://app.autocomplete.io/aBcDeF&quot;) back to you. On the other hand, if you&#39;ve configured your integration for <strong>AutoComplete-Initiated Messaging</strong>, AutoComplete will engage with Jon directly via his preferred contact method.</p>
 
 <p>Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.</p>
-<h2 id='current-insurance-verification'>Current Insurance Verification</h2>
+<h2 id='optional-responses'>Optional Responses</h2>
+<p>By default, any submissions to the <code>POST /people</code> endpoint will only return the customer&#39;s personalized <code>flow_identifier</code> and <code>flow_url</code> (&quot;uVwXyZ&quot; and &quot;https://app.autocomplete.io/uVwXyZ&quot;, respectively, in the example above). However, you can obtain additional responses, if desired:</p>
+<h3 id='current-insurance'>Current Insurance</h3>
 <blockquote>
-<p>Example of polling integration.
-1. Submit a new deal to the <code>POST /people</code> endpoint:</p>
+<p>To request the customer&#39;s current insurance information when calling <code>/people</code>:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>curl -X POST https://
-
-data = {
-    "first_name": "Jon",
-    "last_name": "Snow",
-    "date_of_birth": "1986-12-26",
-    "phone_numbers": [
-        {
-            "number": "+15551230000",
-            "type": "mobile"
-        }
-    ],
-    "addresses": [
-        {
-            "address_1": "555 Main St",
-            "city": "Pleasantville",
-            "state": "CA",
-            "postal_code": "94105"
-        }
-    ],
-    "new_vehicles": [
-        {
-            "vin": "WAULH54B0YN028245"
-        }
-    ],
-    "source": {
-        "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399"
-    }
-}
-</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"return_current_insurance"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>As part of the shopping process, AutoComplete attempts to retrieve the customer&#39;s current insurance details from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.</p>
+<p>As part of the shopping process, AutoComplete attempts to retrieve the customer&#39;s current insurance policy from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.</p>
 
-<p>If you would like to receive this verification data, you can either:</p>
+<p>To indicate that you would like us to return the current insurance details (if available), set the optional parameter <code>return_current_insurance</code> to <code>true</code>.</p>
+<h3 id='initial-quote'>Initial Quote</h3>
+<blockquote>
+<p>To request an initial quote for the customer when calling <code>/people</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"return_initial_quote"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>AutoComplete can also generate a preliminary, &quot;initial&quot; insurance quote for any new customer. This initial quote will obviously not reflect any customizations that would require further user interaction, such as additional household cars or drivers not already contained in your submitted payload. However, this initial quote can still be useful to gauge customer interest and calculate potential savings.</p>
+
+<p>To indicate you would like us to return an initial quote, set the optional parameter <code>return_initial_quote</code> to <code>true</code>. <em>Please note that your customer must have already consented to an insurance quote before you submit this request.</em></p>
+<h3 id='receiving-results'>Receiving Results</h3>
+<p>AutoComplete typically requires 15 to 60 seconds to obtain this optional data. As such, we will return this data to you asynchrously. We support two methods — you can either:</p>
 
 <ul>
-<li>poll the results periodically using the <a href="#get-people-lt-flow_identifier-gt-verification_results"><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></a> endpoint, or</li>
+<li>poll the results periodically using the <a href="#get-people-lt-flow_identifier-gt-results"><code>GET /people/&lt;flow_identifier&gt;/results</code></a> endpoint, or</li>
 <li>set up an asynchronous callback URL. </li>
 </ul>
 
-<p>To set up a callback, please provide AutoComplete a URL and authorization token. AutoComplete will make a <code>POST</code> request to your specified URL as soon as results are available. Results are typically returned in under 60 seconds. The structure of the webhook payload is identical to the returned from <a href="#get-people-lt-flow_identifier-gt-verification_results"><code>GET .../verification_results</code></a>.</p>
+<p>To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a <code>POST</code> request to your specified URL as soon as results are available. The structure of the webhook payload is identical to the returned from <a href="#get-people-lt-flow_identifier-gt-results"><code>GET .../results</code></a>.</p>
 <h1 id='technical-overview'>Technical Overview</h1>
 <blockquote>
 <p>Example Request:</p>
@@ -717,7 +704,7 @@ data = {
 </tbody></table>
 
 <p>For all preferred fields, see <a href="#person">Models - Person</a>.</p>
-<h2 id='get-people-lt-flow_identifier-gt-verification_results'><code>GET /people/&lt;flow_identifier&gt;/verification_results</code></h2>
+<h2 id='get-people-lt-flow_identifier-gt-results'><code>GET /people/&lt;flow_identifier&gt;/results</code></h2>
 <blockquote>
 <p>Example:</p>
 </blockquote>
@@ -728,20 +715,20 @@ data = {
 </span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 
-<span class="n">flow_identifier</span> <span class="o">=</span> <span class="s">'uVwXyZ'</span>  <span class="c1"># Originally returned by the /people endpoint
+<span class="n">flow_identifier</span> <span class="o">=</span> <span class="s">'uVwXyZ'</span>  <span class="c1"># From the /people endpoint
 </span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s">'https://api.autocomplete.io/people/</span><span class="si">{</span><span class="n">flow_identifier</span><span class="si">}</span><span class="s">/verification_results'</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s">'https://api.autocomplete.io/people/</span><span class="si">{</span><span class="n">flow_identifier</span><span class="si">}</span><span class="s">/results'</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
-<p>Sample response:</p>
+<p>Example response:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"flow_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uVwXyZ"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"done"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_insurance_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"found"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"current_insurance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"policy_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"carrier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allstate"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"carrier_policy_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5789000AZ"</span><span class="p">,</span><span class="w">
@@ -762,10 +749,15 @@ data = {
                 </span><span class="nl">"deductible"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"initial_quote_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"initial_quote"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"carrier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Progressive"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"effective_monthly_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">12399</span><span class="p">,</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Retrieve the customer&#39;s current insurance information. The response payload is also used when AutoComplete returns verification results via an asynchronous callback.</p>
+<p>If requested as part of the original submission, retrieve the customer&#39;s current insurance policy and/or initial insurance quote. See the <a href="#optional-responses">Optional Responses</a> section for more information.</p>
 
 <table><thead>
 <tr>
@@ -780,14 +772,24 @@ data = {
 <td>Used to associate responses to customers when returned by an asynchronous callback</td>
 </tr>
 <tr>
-<td><strong>status</strong></td>
+<td><strong>current_insurance_status</strong></td>
 <td>string</td>
-<td>Status of the automatic verification process. Valid options: <code>pending</code>, <code>succeeded</code>, <code>failed</code></td>
+<td>Possible values: <code>pending</code>, <code>found</code>, <code>not_found</code>. <em>Note that a status of <code>not_found</code> only indicates that AutoComplete failed to locate the customer&#39;s current insurance — not that the customer definitively has no current insurance.</em></td>
 </tr>
 <tr>
-<td><strong>policy</strong></td>
+<td><strong>current_insurance</strong></td>
 <td><a href="#policy">Policy</a></td>
-<td>The customer&#39;s current auto insurance policy</td>
+<td>If found, the customer&#39;s current auto insurance policy</td>
+</tr>
+<tr>
+<td><strong>initial_quote_status</strong></td>
+<td>string</td>
+<td>Possible values: <code>pending</code>, <code>found</code>, <code>not_found</code></td>
+</tr>
+<tr>
+<td><strong>initial_quote</strong></td>
+<td></td>
+<td>If found, the winning initial quote carrier and price</td>
 </tr>
 </tbody></table>
 <h1 id='models'>Models</h1><h2 id='person'>Person</h2>
@@ -1338,39 +1340,110 @@ data = {
 
 <p>For example, <code>&quot;american_family&quot;</code>, <code>&quot;american family&quot;</code>, and <code>&quot;AMERICAN FAMILY&quot;</code> will all be accepted as a valid alternatives for <code>&quot;American Family&quot;</code>. However, responses returned from the API will always be formatted as shown.</p>
 <h2 id='carrier'>Carrier</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"AAA"</span><span class="w">
+</span><span class="s2">"Acuity"</span><span class="w">
+</span><span class="s2">"Adirondack"</span><span class="w">
+</span><span class="s2">"Allmerica"</span><span class="w">
 </span><span class="s2">"Allstate"</span><span class="w">
+</span><span class="s2">"Ally Insurance"</span><span class="w">
 </span><span class="s2">"American Family"</span><span class="w">
 </span><span class="s2">"American National"</span><span class="w">
+</span><span class="s2">"American Strategic"</span><span class="w">
 </span><span class="s2">"Amica Mutual"</span><span class="w">
+</span><span class="s2">"AmTrust Insurance"</span><span class="w">
+</span><span class="s2">"Arrowhead"</span><span class="w">
+</span><span class="s2">"ASI Progressive"</span><span class="w">
+</span><span class="s2">"Aspire Advantage"</span><span class="w">
+</span><span class="s2">"Aspire Savings"</span><span class="w">
+</span><span class="s2">"AssuranceAmerica"</span><span class="w">
 </span><span class="s2">"Auto Owners"</span><span class="w">
 </span><span class="s2">"Bear River"</span><span class="w">
+</span><span class="s2">"Branch"</span><span class="w">
+</span><span class="s2">"Bristol West"</span><span class="w">
 </span><span class="s2">"Chubb"</span><span class="w">
+</span><span class="s2">"Cincinnati"</span><span class="w">
+</span><span class="s2">"Clarendon"</span><span class="w">
+</span><span class="s2">"Clearcover"</span><span class="w">
+</span><span class="s2">"CNA Insurance"</span><span class="w">
+</span><span class="s2">"Commonwealth"</span><span class="w">
 </span><span class="s2">"Country Financial"</span><span class="w">
+</span><span class="s2">"Cover"</span><span class="w">
+</span><span class="s2">"Dairyland"</span><span class="w">
+</span><span class="s2">"Direct General"</span><span class="w">
+</span><span class="s2">"Electric"</span><span class="w">
+</span><span class="s2">"Elephant"</span><span class="w">
 </span><span class="s2">"Encompass"</span><span class="w">
+</span><span class="s2">"Encova"</span><span class="w">
+</span><span class="s2">"Equity Insurance"</span><span class="w">
 </span><span class="s2">"Erie"</span><span class="w">
 </span><span class="s2">"Esurance"</span><span class="w">
 </span><span class="s2">"Farmers"</span><span class="w">
+</span><span class="s2">"Farmers Union Insurance"</span><span class="w">
+</span><span class="s2">"Fiesta"</span><span class="w">
+</span><span class="s2">"First Chicago"</span><span class="w">
 </span><span class="s2">"Foremost"</span><span class="w">
-</span><span class="s2">"Geico"</span><span class="w">
+</span><span class="s2">"Freedom National"</span><span class="w">
+</span><span class="s2">"GAINSCO"</span><span class="w">
+</span><span class="s2">"GEICO"</span><span class="w">
+</span><span class="s2">"Germania"</span><span class="w">
+</span><span class="s2">"GMAC"</span><span class="w">
+</span><span class="s2">"Good2Go"</span><span class="w">
+</span><span class="s2">"Grange"</span><span class="w">
+</span><span class="s2">"Hallmark"</span><span class="w">
 </span><span class="s2">"Hanover"</span><span class="w">
 </span><span class="s2">"Heritage"</span><span class="w">
 </span><span class="s2">"Hippo"</span><span class="w">
+</span><span class="s2">"Home State County Mutual"</span><span class="w">
 </span><span class="s2">"Homesite"</span><span class="w">
+</span><span class="s2">"Horace Mann"</span><span class="w">
+</span><span class="s2">"Infinity"</span><span class="w">
+</span><span class="s2">"Infinity RSVP"</span><span class="w">
+</span><span class="s2">"Infinity Special"</span><span class="w">
+</span><span class="s2">"Integrity"</span><span class="w">
 </span><span class="s2">"Kemper"</span><span class="w">
 </span><span class="s2">"Kentucky Farm Bureau"</span><span class="w">
+</span><span class="s2">"Leader"</span><span class="w">
 </span><span class="s2">"Liberty Mutual"</span><span class="w">
+</span><span class="s2">"Mapfre"</span><span class="w">
+</span><span class="s2">"Markel Insurance"</span><span class="w">
+</span><span class="s2">"Mendota Insurance"</span><span class="w">
 </span><span class="s2">"Mercury"</span><span class="w">
+</span><span class="s2">"Meritplan"</span><span class="w">
 </span><span class="s2">"Metlife"</span><span class="w">
+</span><span class="s2">"Metromile"</span><span class="w">
+</span><span class="s2">"Mile Auto"</span><span class="w">
+</span><span class="s2">"National General"</span><span class="w">
 </span><span class="s2">"National General"</span><span class="w">
 </span><span class="s2">"Nationwide"</span><span class="w">
+</span><span class="s2">"Newport"</span><span class="w">
+</span><span class="s2">"NYCM"</span><span class="w">
+</span><span class="s2">"Plymouth Rock"</span><span class="w">
 </span><span class="s2">"Progressive"</span><span class="w">
+</span><span class="s2">"QBE"</span><span class="w">
+</span><span class="s2">"Redpoint"</span><span class="w">
+</span><span class="s2">"Root"</span><span class="w">
+</span><span class="s2">"Safe Auto"</span><span class="w">
 </span><span class="s2">"Safeco"</span><span class="w">
+</span><span class="s2">"Safeway"</span><span class="w">
+</span><span class="s2">"Secura"</span><span class="w">
+</span><span class="s2">"SelectQuote"</span><span class="w">
 </span><span class="s2">"Shelter"</span><span class="w">
+</span><span class="s2">"Starr Indemnity"</span><span class="w">
 </span><span class="s2">"State Auto"</span><span class="w">
 </span><span class="s2">"State Farm"</span><span class="w">
+</span><span class="s2">"Stillwater"</span><span class="w">
+</span><span class="s2">"Sun Coast"</span><span class="w">
+</span><span class="s2">"Texas Farm Bureau"</span><span class="w">
+</span><span class="s2">"The General"</span><span class="w">
+</span><span class="s2">"The Hartford"</span><span class="w">
+</span><span class="s2">"Titan"</span><span class="w">
 </span><span class="s2">"Travelers"</span><span class="w">
+</span><span class="s2">"TSC Direct"</span><span class="w">
+</span><span class="s2">"21st Century"</span><span class="w">
 </span><span class="s2">"Universal"</span><span class="w">
+</span><span class="s2">"USA Underwriters"</span><span class="w">
 </span><span class="s2">"USAA"</span><span class="w">
+</span><span class="s2">"West Bend Mutual"</span><span class="w">
+</span><span class="s2">"Westfield"</span><span class="w">
 </span></code></pre></div><h2 id='policy-type'>Policy Type</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"auto"</span><span class="w">
 </span><span class="s2">"boat"</span><span class="w">
 </span><span class="s2">"business_owners"</span><span class="w">
