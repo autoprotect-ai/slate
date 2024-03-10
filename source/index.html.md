@@ -36,7 +36,7 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
 
 ## Example Use Case
 
-> Sample submission to `POST /people`:
+> Example submission to `POST /people`:
 
 ```json
 {
@@ -157,19 +157,17 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
         "external_customer_number": "928880",
         "external_deal_number": "41706"
     },
-    "quote_requested": true,
 }
 ```
 
-> Sample response:
+> Example response:
 
 ```json
 {
     "id": "ec694d9a-a3f8-4a55-95ff-de97d1bc945a",
     "first_name": "Jon",
     "last_name": "Snow",
-    // Submitted fields truncated for brevity
-    //...
+    ...
     "flow": {
         "flow_identifier": "uVwXyZ",
         "flow_url": "https://app.autocomplete.io/uVwXyZ", // Jon's personalized shopping link
@@ -177,7 +175,7 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
 }
 ```
 
-> Sample error:
+> Example error:
 
 ```json
 {
@@ -196,16 +194,52 @@ If you've configured your integration for **Dealer-Initiated Messaging**, AutoCo
 
 Finally, Jon visits his personalized link, where he confirms his personal information, compares quotes, and purchases a policy.
 
-## Insurance Verification Results (Optional)
+## Optional Responses
 
-As part of the shopping process, AutoComplete attempts to retrieve the customer's current insurance details from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.
+By default, any submissions to the `POST /people` endpoint will only return the customer's personalized `flow_identifier` and `flow_url` ("uVwXyZ" and "https://app.autocomplete.io/uVwXyZ", respectively, in the example above). However, you can obtain additional responses, if desired:
 
-If you would like to receive this verification data, you can either:
+### Current Insurance
+
+> To request the customer's current insurance information when calling `/people`:
+
+```json
+{
+    "first_name": "Jon",
+    "last_name": "Snow",
+    ...
+    "return_current_insurance": true,
+}
+```
+
+As part of the shopping process, AutoComplete attempts to retrieve the customer's current insurance policy from insurer databases. This data helps AutoComplete select more suitable insurers and insurance policies for the customer, but can also be useful for dealers (a) to confirm that the customer is actively insured, as required by law, and (b) to confirm that the customer has adequate levels of asset coverage to meet lienholder requirements.
+
+To indicate that you would like us to return the current insurance details (if available), set the optional parameter `return_current_insurance` to `true`.
+
+### Initial Quote
+
+> To request an initial quote for the customer when calling `/people`:
+
+```json
+{
+    "first_name": "Jon",
+    "last_name": "Snow",
+    ...
+    "return_initial_quote": true,
+}
+```
+
+AutoComplete can also generate a preliminary, "initial" insurance quote for any new customer. This initial quote will obviously not reflect any customizations that would require further user interaction, such as additional household cars or drivers not already contained in your submitted payload. However, this initial quote can still be useful to gauge customer interest and calculate potential savings.
+
+To indicate you would like us to return an initial quote, set the optional parameter `return_initial_quote` to `true`. _Please note that your customer must have already consented to an insurance quote before you submit this request._
+
+### Receiving Results
+
+AutoComplete typically requires 15 to 60 seconds to obtain this optional data. As such, we will return this data to you asynchrously. We support two methods — you can either:
 
 * poll the results periodically using the [`GET /people/<flow_identifier>/results`](#get-people-lt-flow_identifier-gt-results) endpoint, or
 * set up an asynchronous callback URL. 
 
-To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a `POST` request to your specified URL as soon as results are available. Results are typically returned in under 60 seconds. The structure of the webhook payload is identical to the returned from [`GET .../results`](#get-people-lt-flow_identifier-gt-results).
+To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a `POST` request to your specified URL as soon as results are available. The structure of the webhook payload is identical to the returned from [`GET .../results`](#get-people-lt-flow_identifier-gt-results).
 
 # Technical Overview
 
@@ -304,19 +338,19 @@ headers = {'Content-Type': 'application/json'}
 
 flow_identifier = 'uVwXyZ'  # From the /people endpoint
 
-r = requests.get(f'https://api.autocomplete.io/people/{flow_identifier}/verification_results', auth=(api_key, api_secret), headers=headers, json=data)
+r = requests.get(f'https://api.autocomplete.io/people/{flow_identifier}/results', auth=(api_key, api_secret), headers=headers, json=data)
 
 if r.status_code == 200:
     print(r.text)
 ```
 
-> Sample response:
+> Example response:
 
 ```json
 {
     "flow_identifier": "uVwXyZ",
-    "verification_status": "success",
-    "verified_policy": {
+    "current_insurance_status": "found",
+    "current_insurance": {
         "policy_type": "auto",
         "carrier_name": "Allstate",
         "carrier_policy_number": "5789000AZ",
@@ -337,17 +371,24 @@ if r.status_code == 200:
                 "deductible": 100000
             }
         }
+    },
+    "initial_quote_status": "success",
+    "initial_quote": {
+        "carrier_name": "Progressive",
+        "effective_monthly_price": 12399,
     }
 }
 ```
 
-Retrieve the customer's current insurance information. The response payload is also used when AutoComplete returns verification results via an asynchronous callback.
+If requested as part of the original submission, retrieve the customer's current insurance policy and/or initial insurance quote. See the [Optional Responses](#optional-responses) section for more information.
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
 | **flow_identifier** | string | Used to associate responses to customers when returned by an asynchronous callback |
-| **status** | string | Status of the automatic verification process. Valid options: `pending`, `succeeded`, `failed` |
-| **policy** | [Policy](#policy) | The customer's current auto insurance policy |
+| **current_insurance_status** | string | Possible values: `pending`, `found`, `not_found`. _Note that a status of `not_found` only indicates that AutoComplete failed to locate the customer's current insurance — not that the customer definitively has no current insurance._ |
+| **current_insurance** | [Policy](#policy) | If found, the customer's current auto insurance policy |
+| **initial_quote_status** | string | Possible values: `pending`, `found`, `not_found` |
+| **initial_quote** | | If found, the winning initial quote carrier and price |
 
 # Models
 
