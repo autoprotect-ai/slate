@@ -169,7 +169,7 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
     "last_name": "Snow",
     ...
     "flow": {
-        "flow_identifier": "uVwXyZ",
+        "flow_id": "uVwXyZ",
         "flow_url": "https://app.autocomplete.io/uVwXyZ", // Jon's personalized shopping link
     }
 }
@@ -196,7 +196,7 @@ Finally, Jon visits his personalized link, where he confirms his personal inform
 
 ## Optional Responses
 
-By default, any submissions to the `POST /people` endpoint will only return the customer's personalized `flow_identifier` and `flow_url` ("uVwXyZ" and "https://app.autocomplete.io/uVwXyZ", respectively, in the example above). However, you can obtain additional responses, if desired:
+By default, any submissions to the `POST /people` endpoint will only return the customer's personalized `flow_id` and `flow_url` ("uVwXyZ" and "https://app.autocomplete.io/uVwXyZ", respectively, in the example above). However, you can obtain additional responses, if desired:
 
 ### Current Insurance
 
@@ -236,10 +236,10 @@ To indicate you would like us to return an initial quote, set the optional param
 
 AutoComplete typically requires 15 to 60 seconds to obtain this optional data. As such, we will return this data to you asynchrously. We support two methods — you can either:
 
-* poll the results periodically using the [`GET /people/<flow_identifier>/results`](#get-people-lt-flow_identifier-gt-results) endpoint, or
+* poll the results periodically using the [`GET /people/<flow_id>/results`](#get-people-lt-flow_id-gt-results) endpoint, or
 * set up an asynchronous callback URL. 
 
-To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a `POST` request to your specified URL as soon as results are available. The structure of the webhook payload is identical to the returned from [`GET .../results`](#get-people-lt-flow_identifier-gt-results).
+To set up a callback, please provide AutoComplete a URL and authorization token during your integration setup. AutoComplete will make a `POST` request to your specified URL as soon as results are available. The structure of the webhook payload is identical to the returned from [`GET .../results`](#get-people-lt-flow_id-gt-results).
 
 # Technical Overview
 
@@ -324,7 +324,7 @@ Upload all customer information using this endpoint. _All fields are preferred, 
 
 For all preferred fields, see [Models - Person](#person).
 
-## `GET /people/<flow_identifier>/results`
+## `GET /people/<flow_id>/results`
 
 > Example:
 
@@ -336,9 +336,9 @@ api_secret = # <Your API Secret>
 
 headers = {'Content-Type': 'application/json'}
 
-flow_identifier = 'uVwXyZ'  # From the /people endpoint
+flow_id = 'uVwXyZ'  # From the /people endpoint
 
-r = requests.get(f'https://api.autocomplete.io/people/{flow_identifier}/results', auth=(api_key, api_secret), headers=headers, json=data)
+r = requests.get(f'https://api.autocomplete.io/people/{flow_id}/results', auth=(api_key, api_secret), headers=headers, json=data)
 
 if r.status_code == 200:
     print(r.text)
@@ -348,7 +348,7 @@ if r.status_code == 200:
 
 ```json
 {
-    "flow_identifier": "uVwXyZ",
+    "flow_id": "uVwXyZ",
     "current_insurance_status": "found",
     "current_insurance": {
         "policy_type": "auto",
@@ -384,7 +384,7 @@ If requested as part of the original submission, retrieve the customer's current
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
-| **flow_identifier** | string | Used to associate responses to customers when returned by an asynchronous callback |
+| **flow_id** | string | Used to associate responses to customers when returned by an asynchronous callback |
 | **current_insurance_status** | string | Possible values: `pending`, `found`, `not_found`. _Note that a status of `not_found` only indicates that AutoComplete failed to locate the customer's current insurance — not that the customer definitively has no current insurance._ |
 | **current_insurance** | [Policy](#policy) | If found, the customer's current auto insurance policy |
 | **initial_quote_status** | string | Possible values: `pending`, `found`, `not_found` |
@@ -595,7 +595,7 @@ All addresses are assumed to be in the United States.
 
 ```json
 {
-    "flow_identifier": "aBcDeF",
+    "flow_id": "aBcDeF",
     "flow_url": "https://app.autocomplete.io/aBcDeF", 
 }
 ```
@@ -604,7 +604,7 @@ The `flow_url` is the personalized insurance-shopping link for that customer.
 
 | **Parameter** | **Type** | **Description** |
 | --- | --- | --- |
-| **flow_identifier** | string | e.g. "aBcDeF" |
+| **flow_id** | string | e.g. "aBcDeF" |
 | **flow_url** | string | e.g. "https://app.autocomplete.io/aBcDeF" |
 
 ## Source
