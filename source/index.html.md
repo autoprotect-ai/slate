@@ -38,139 +38,62 @@ We refer to options (1) and (2) as **Dealer-Initiated Messaging**, and option (3
 
 > Example submission to `POST /people`:
 
-```json
-{
-    "first_name": "Jon",
-    "middle_name": "Aegon",
-    "last_name": "Snow",
-    "date_of_birth": "1986-12-26",
-    "gender": "male",
-    "marital_status": "married",
-    "education": "bachelors",
-    "employment_status": "employed",
-    "residence_ownership_type": "own",
-    "age_first_licensed": 16,
+```python
+import requests
+
+API_BASE_URL = "https://api-staging.autocomplete.io/partner-api/v1/people/"
+API_USERNAME = "my_user" # <Your API Username>
+API_PASSWORD = "qwert" # <Your API Password>
+AUTH = (API_USERNAME, API_PASSWORD)
+DEALER_ID = "9bd76b43-a9b8-442f-a142-c6b06aef8a75"
+
+body = {
+    "first_name": "Jonathan",
+    "last_name": "Krupnov",
+    "date_of_birth": "1989-11-30",
     "phone_numbers": [
         {
-            "number": "+15551230000",
-            "type": "mobile",
-            "sms_consent": true
-        },
-        {
-            "number": "+15551231111",
-            "type": "home"
+            "number": "+1813212137",
+            "type": "mobile"
         }
     ],
     "emails": [
         {
-            "email": "jon.snow@nightswatch.com",
-            "preferred": true
+            "email": "jon.snow@nightswatch.com"
         }
     ],
     "addresses": [
         {
-            "type": "physical",
-            "address_1": "555 Main St.",
-            "city": "Pleasantville",
-            "state": "CA",
-            "postal_code": "94105"
-        },
-        {
-            "type": "mailing",
-            "address_1": "PO Box 100",
-            "city": "San Francisco",
-            "state": "CA",
-            "postal_code": "94105"
+            "address_1": "63 NILE DRIVE",
+            "city": "ROCHESTER",
+            "state": "NY",
+            "postal_code": "14622"
         }
     ],
-    "drivers_license": {
-        "number": "D1234567",
-        "state": "CA",
-        "status": "active",
-        "issued_date": "2015-11-11",
-        "expiration_date": "2025-11-11"
-    },
     "new_vehicles": [
         {
-            "vin": "WAULH54B0YN028245",
-            "year": 2022,
-            "make": "Audi",
-            "model": "A4",
-            "trim": "45 TFSI",
-            "ownership_start": "2022-03-09",
-            "ownership_type": "leased",
-            "lease_duration": 36,
-            "annual_mileage": 12000,
-            "odometer": 57,
-            "cost_new": 3990000,
-            "lienholder": "Toyota Financial Services",
-            "primary_use": "pleasure",
-            "rideshare": false,
-            "addresses": [
-                {
-                    "type": "garaging",
-                    "address_1": "555 Main St",
-                    "city": "Pleasantville",
-                    "state": "CA",
-                    "postal_code": "94105-1023"
-                },
-                {
-                    "type": "lienholder",
-                    "address_1": "1 Toyota Way",
-                    "city": "Plano",
-                    "state": "TX",
-                    "postal_code": "75024"
-                }
-            ]
-        }
-    ],
-    "trade_ins": [
-        {
-            "vin": "5TD2A23C645204309",
-            "year": 2015,
-            "make": "Toyota",
-            "model": "Camry",
-            "odometer": 78001
-        }
-    ],
-    "policies": [
-        {
-            "policy_type": "auto",
-            "carrier_name": "geico",
-            "carrier_policy_number": "604-80-35-635",
-            "effective_date": "2021-12-20",
-            "expiry_date": "2022-05-20"
-        }
-    ],
-    "related_people": [
-        {
-            "first_name": "Ygritte",
-            "last_name": "Wildling",
-            "date_of_birth": "1987-02-09",
-            "marital_status": "married",
-            "relationship": "spouse"
+            "vin": "VNKKTUD35HA077827",
+            "ownership_type": "financed",
+            "ownership_start": "2024-03-01"
         }
     ],
     "source": {
-        "dealer_id": "4119799d-215f-4f49-b38a-0b94c2448399",
-        "type": "cdk",
-        "external_customer_number": "928880",
-        "external_deal_number": "41706"
-    },
+        "dealer_id": DEALER_ID,
+        "external_customer_number": "jonathan-krupnov-01"
+    }
 }
+
+response = requests.post(API_BASE_URL, auth=AUTH, json=body)
+print(response.json())
 ```
 
 > Example response:
 
 ```json
 {
-    "id": "ec694d9a-a3f8-4a55-95ff-de97d1bc945a",
-    "first_name": "Jon",
-    "last_name": "Snow",
-    ...
     "flow": {
-        "flow_id": "uVwXyZ",
-        "flow_url": "https://app.autocomplete.io/uVwXyZ", // Jon's personalized shopping link
+        "flow_id": "aBcDeF",
+        "flow_url": "https://app.autocomplete.io/aBcDeF"
     }
 }
 ```
